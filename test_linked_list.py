@@ -30,9 +30,10 @@ def test_insert():
     my_list.insert(3)
     ptr = my_list.start
 
-    assert(ptr.value == "One")
+    assert(ptr.value == 3)
     ptr = ptr.next_node
     assert(ptr.value == "Two")
     ptr = ptr.next_node
-    assert(ptr.value == 3)
+    assert(ptr.value == "One")
+    assert(ptr.next_node == None)
 
