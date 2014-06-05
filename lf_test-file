@@ -36,4 +36,3 @@ def test_insert():
     ptr = ptr.next_node
     assert(ptr.value == "One")
     assert(ptr.next_node == None)
-
