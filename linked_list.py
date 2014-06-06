@@ -13,6 +13,9 @@ class Linked_List(object):
 
     def __str__(self):
         statement = []
+        if not self.size:
+            statement = tuple(statement)
+            return str(statement)
         temp = self.head
         while True:
             statement.append(temp.node_name)

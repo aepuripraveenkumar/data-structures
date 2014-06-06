@@ -94,5 +94,8 @@ def test_print():
     list1.insert("Paul")
     list1.insert("George")
     list1.insert("Ringo")
-    list1.remove("John")
-    assert print list1
+    assert list1.__str__() == "('Ringo', 'George', 'Paul', 'John')"
+    list2 = Linked_List()
+    assert list2.__str__() == "()"
+    list1.pop()
+    assert list1.__str__() == "('George', 'Paul', 'John')"
