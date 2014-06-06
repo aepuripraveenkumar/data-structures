@@ -5,19 +5,28 @@ class Node(object):
         self.node_name = node_name
         self.node_next = node_next
 
-    def __str__(self):
-        return str(self.node_name)
-
 
 class Linked_List(object):
     def __init__(self):
         self.size = 0
         self.head = None
 
+    def __str__(self):
+        statement = []
+        temp = self.head
+        while True:
+            statement.append(temp.node_name)
+            if temp.node_next:
+                temp = temp.node_next
+            else:
+                break
+        statement = tuple(statement)
+        return str(statement)
+
     # insert node at head
     def insert(self, node_name):
         # the new head should point to the old head
-        if self.head is None:
+        if not self.head:
             node = Node(node_name)
             self.head = node
         else:
@@ -45,7 +54,7 @@ class Linked_List(object):
                 result = temp
                 break
             else:
-                if temp.node_next is None:
+                if not temp.node_next:
                     result = None
                     break
                 else:
@@ -61,7 +70,7 @@ class Linked_List(object):
                 remove_node = temp
                 break
             else:
-                if temp.node_next is None:
+                if not temp.node_next:
                     return "Node not in list"
                     break
                 else:
@@ -72,13 +81,3 @@ class Linked_List(object):
             # removed node by changing pointers
             previous_node.node_next = remove_node.node_next
             self.size -= 1
-
-    def printList(self):
-        node = self.head
-        return_str = '('
-        while node.node_next is not None:
-            return_str += node.node_name + ', '
-            node = node.node_next
-        return_str += node.node_name
-        return_str += ')'
-        print return_str

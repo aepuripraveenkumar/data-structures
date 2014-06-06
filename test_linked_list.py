@@ -94,5 +94,5 @@ def test_print():
     list1.insert("Paul")
     list1.insert("George")
     list1.insert("Ringo")
-    printed_list = '(Ringo, George, Paul, John)'
-    assert list1.printList() == printed_list
+    list1.remove("John")
+    assert print list1
