@@ -83,7 +83,9 @@ def test_remove():
     list1.remove("John")
     assert list1.head.node_next.node_next.node_next is None
     list1.remove("George")
+    assert list1.size == 2
     assert list1.head.node_next.node_name == "Paul"
+    assert list1.remove("Pete") == "Node not in list"
 
 
 def test_print():
@@ -92,5 +94,5 @@ def test_print():
     list1.insert("Paul")
     list1.insert("George")
     list1.insert("Ringo")
-    printed_list = ('John', 'Paul', 'George', 'Ringo')
-    assert str(list1) == printed_list
+    printed_list = '(Ringo, George, Paul, John)'
+    assert list1.printList() == printed_list

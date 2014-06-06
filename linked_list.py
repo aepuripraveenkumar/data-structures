@@ -14,9 +14,6 @@ class Linked_List(object):
         self.size = 0
         self.head = None
 
-    def __str__(self):
-        pass
-
     # insert node at head
     def insert(self, node_name):
         # the new head should point to the old head
@@ -56,5 +53,32 @@ class Linked_List(object):
         return result
 
     # remove given node from list, node must be in list
-    def remove(node_name):
-        pass
+    def remove(self, node_name):
+        temp = self.head
+        previous_node = None
+        while True:
+            if temp.node_name == node_name:
+                remove_node = temp
+                break
+            else:
+                if temp.node_next is None:
+                    return "Node not in list"
+                    break
+                else:
+                    # keep track of previous node so we can move pointer
+                    previous_node = temp
+                    temp = temp.node_next
+        if remove_node:
+            # removed node by changing pointers
+            previous_node.node_next = remove_node.node_next
+            self.size -= 1
+
+    def printList(self):
+        node = self.head
+        return_str = '('
+        while node.node_next is not None:
+            return_str += node.node_name + ', '
+            node = node.node_next
+        return_str += node.node_name
+        return_str += ')'
+        print return_str
