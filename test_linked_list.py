@@ -1,4 +1,4 @@
-from linked_list import Node, Linked_List
+from linked_list import Node, Linked_List, No_Node_Exception
 import pytest
 
 
@@ -85,7 +85,11 @@ def test_remove():
     list1.remove("George")
     assert list1.size == 2
     assert list1.head.node_next.node_name == "Paul"
-    assert list1.remove("Pete") == "Node not in list"
+    # assert list1.remove("Pete") == "Node not in list"
+    with pytest.raises(No_Node_Exception) as excinfo:
+        list1.remove("Pete")
+    assert excinfo.value.message == '-1'
+    list1.remove("Ringo")
 
 
 def test_print():
