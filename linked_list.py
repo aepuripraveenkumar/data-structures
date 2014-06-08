@@ -1,5 +1,9 @@
 
 
+class No_Node_Exception(Exception):
+    pass
+
+
 class Node(object):
     def __init__(self, node_name=None, node_next=None):
         self.node_name = node_name
@@ -14,28 +18,20 @@ class Linked_List(object):
     def __str__(self):
         statement = []
         if not self.size:
-            statement = tuple(statement)
-            return str(statement)
+            return str(tuple(statement))
         temp = self.head
-        while True:
+        while temp:
             statement.append(temp.node_name)
-            if temp.node_next:
-                temp = temp.node_next
-            else:
-                break
-        statement = tuple(statement)
-        return str(statement)
+            temp = temp.node_next
+        return str(tuple(statement))
 
     # insert node at head
     def insert(self, node_name):
         # the new head should point to the old head
         if not self.head:
-            node = Node(node_name)
-            self.head = node
+            self.head = Node(node_name)
         else:
-            old_head = self.head
-            node = Node(node_name, old_head)
-            self.head = node
+            self.head = Node(node_name, self.head)
         self.size += 1
 
     # pop the first value off the head of the list and return it
@@ -74,13 +70,14 @@ class Linked_List(object):
                 break
             else:
                 if not temp.node_next:
-                    return "Node not in list"
-                    break
+                    raise No_Node_Exception("-1")
                 else:
                     # keep track of previous node so we can move pointer
                     previous_node = temp
                     temp = temp.node_next
-        if remove_node:
+        if remove_node and remove_node != self.head:
             # removed node by changing pointers
             previous_node.node_next = remove_node.node_next
             self.size -= 1
+        else:
+            self.head = self.head.node_next
