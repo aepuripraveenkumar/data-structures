@@ -1,5 +1,9 @@
 
 
+class No_Node_Exception(Exception):
+    pass
+
+
 class Node(object):
     def __init__(self, node_name=None, node_next=None):
         self.node_name = node_name
@@ -17,12 +21,9 @@ class Linked_List(object):
             statement = tuple(statement)
             return str(statement)
         temp = self.head
-        while True:
+        while temp:
             statement.append(temp.node_name)
-            if temp.node_next:
-                temp = temp.node_next
-            else:
-                break
+            temp = temp.node_next
         statement = tuple(statement)
         return str(statement)
 
@@ -74,8 +75,7 @@ class Linked_List(object):
                 break
             else:
                 if not temp.node_next:
-                    return "Node not in list"
-                    break
+                    raise No_Node_Exception("-1")
                 else:
                     # keep track of previous node so we can move pointer
                     previous_node = temp

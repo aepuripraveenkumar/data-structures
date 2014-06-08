@@ -14,6 +14,7 @@ def test_node_init_next():
     node2 = Node("Jane", node1)
     assert node2.node_next == node1
 
+
 # test initialization of Linked_List, size should be 0
 def test_stack_init():
     myStack = Stack()
@@ -27,12 +28,14 @@ def test_stack_push():
     assert myStack.head.node_name == "Eggs"
     assert myStack.head.node_next.node_name == "Bacon"
 
+
 def test_stack_pop():
     myStack = Stack()
     myStack.push("Bacon")
     myStack.push("Eggs")
     assert myStack.pop() == "Eggs"
     assert myStack.head.node_name == "Bacon"
+
 
 def test_stack_empty_pop():
     myStack = Stack()
