@@ -80,7 +80,9 @@ class Linked_List(object):
                     # keep track of previous node so we can move pointer
                     previous_node = temp
                     temp = temp.node_next
-        if remove_node:
+        if remove_node and remove_node != self.head:
             # removed node by changing pointers
             previous_node.node_next = remove_node.node_next
             self.size -= 1
+        else:
+            self.head = self.head.node_next

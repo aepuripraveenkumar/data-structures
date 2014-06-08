@@ -89,6 +89,7 @@ def test_remove():
     with pytest.raises(No_Node_Exception) as excinfo:
         list1.remove("Pete")
     assert excinfo.value.message == '-1'
+    list1.remove("Ringo")
 
 
 def test_print():
