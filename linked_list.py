@@ -18,25 +18,20 @@ class Linked_List(object):
     def __str__(self):
         statement = []
         if not self.size:
-            statement = tuple(statement)
-            return str(statement)
+            return str(tuple(statement))
         temp = self.head
         while temp:
             statement.append(temp.node_name)
             temp = temp.node_next
-        statement = tuple(statement)
-        return str(statement)
+        return str(tuple(statement))
 
     # insert node at head
     def insert(self, node_name):
         # the new head should point to the old head
         if not self.head:
-            node = Node(node_name)
-            self.head = node
+            self.head = Node(node_name)
         else:
-            old_head = self.head
-            node = Node(node_name, old_head)
-            self.head = node
+            self.head = Node(node_name, self.head)
         self.size += 1
 
     # pop the first value off the head of the list and return it
