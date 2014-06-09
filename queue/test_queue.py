@@ -29,10 +29,11 @@ def test_stack_enqueue():
     myQueue.enqueue("Eggs")
     myQueue.enqueue("Coffee")
     assert myQueue.tail.node_name == "Coffee"
-    assert myQueue.tail.next_node == None
+    assert myQueue.tail.node_prev == None
+    assert myQueue.tail.node_next.node_name == "Eggs"
     assert myQueue.head.node_name == "Bacon"
-    assert myQueue.head.node_next.node_name == "Eggs"
-    assert myQueue.head.node_next.node_next == "Coffee"
+    assert myQueue.head.node_prev.node_name == "Eggs"
+    assert myQueue.head.node_prev.node_prev.node_name == "Coffee"
 
 
 def test_stack_dequeue():
@@ -45,16 +46,16 @@ def test_stack_dequeue():
     myQueue.enqueue("OJ")
     return_value = myQueue.dequeue()
     assert myQueue.tail.node_name == "OJ"
-    assert myQueue.tail.next_node == None
-    assert myQueue.head.node_name == "Bacon"
-    assert myQueue.head.node_next.node_name == "Eggs"
-    assert myQueue.head.node_next.node_next == "Coffee"
+    assert myQueue.tail.node_next.node_name == "Hash"
+    assert myQueue.head.node_name == "Eggs"
+    assert myQueue.head.node_prev.node_name == "Coffee"
+    assert myQueue.head.node_prev.node_prev.node_name == "Ham"
     assert return_value == "Bacon"
     assert myQueue.tail.node_name == "OJ"
-    assert myQueue.tail.next_node == None
+    assert myQueue.tail.node_prev == None
     assert myQueue.head.node_name == "Eggs"
-    assert myQueue.head.node_next.node_name == "Coffee"
-    assert myQueue.head.node_next.node_next == "Ham"
+    assert myQueue.head.node_prev.node_name == "Coffee"
+    assert myQueue.head.node_prev.node_prev.node_name == "Ham"
 
 def test_stack_size():
     myQueue = Queue()
@@ -71,4 +72,5 @@ def test_stack_size():
 
 def test_stack_empty_dequeue():
     myQueue = Queue()
-    assert myQueue.dequeue() is Exception
+    with pytest.raises(AttributeError):
+        myQueue.dequeue()
