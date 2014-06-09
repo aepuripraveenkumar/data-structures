@@ -56,7 +56,19 @@ def test_stack_dequeue():
     assert myQueue.head.node_next.node_name == "Coffee"
     assert myQueue.head.node_next.node_next == "Ham"
 
+def test_stack_size():
+    myQueue = Queue()
+    myQueue.enqueue("Bacon")
+    myQueue.enqueue("Eggs")
+    myQueue.enqueue("Coffee")
+    assert myQueue.size == 3
+    myQueue.dequeue()
+    assert myQueue.size == 2
+    myQueue.dequeue()
+    assert myQueue.size == 1
+    myQueue.dequeue()
+    assert myQueue.size == 0
 
-def test_stack_empty_pop():
+def test_stack_empty_dequeue():
     myQueue = Queue()
     assert myQueue.dequeue() is Exception
