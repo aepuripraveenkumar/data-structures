@@ -39,4 +39,5 @@ def test_stack_pop():
 
 def test_stack_empty_pop():
     myStack = Stack()
-    assert myStack.pop() == "The stack is empty."
+    with pytest.raises(AttributeError):
+        myStack.pop()

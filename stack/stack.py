@@ -14,7 +14,7 @@ class Stack(object):
         try:
             self.head.node_next
         except AttributeError:
-            return "The stack is empty."
+            raise
         else:
             temp = self.head.node_name
             self.head = self.head.node_next
