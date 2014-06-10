@@ -20,8 +20,8 @@ class Double_list(object):
 
     def shift(self):
         temp = self.list_ptr
-        while not temp.next_node:
-            temp = temp.next_node
+        while temp.node_next:
+            temp = temp.node_next
         return_value = temp.node_name
         temp = temp.node_prev
         temp.node_next = None
@@ -32,13 +32,15 @@ class Double_list(object):
         if not self.list_ptr:
             self.list_ptr = Node(node_name)
         else:
-            self.list_ptr = Node(node_name, self.list_ptr.node_next)
+            temp = self.list_ptr
+            self.list_ptr = Node(node_name, temp)
+            temp.node_prev = self.list_ptr
 
     def append(self, node_name):
         temp = self.list_ptr
-        while not temp.next_node:
-            temp = temp.next_node
-        temp.next_node = Node(node_name, None, temp)
+        while temp.node_next:
+            temp = temp.node_next
+        temp.node_next = Node(node_name, None, temp)
 
     def remove(self, value):
         temp = self.list_ptr
@@ -48,6 +50,5 @@ class Double_list(object):
         except AttributeError:
             raise AttributeError
         else:
-            temp.node_next.node_prev, temp.node_prev.node_next = \
-                temp.node_prev.node_next, temp.node_next.node_prev
-
+            temp.node_next.node_prev = temp.node_prev
+            temp.node_prev.node_next = temp.node_next
