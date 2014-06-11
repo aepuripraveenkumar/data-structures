@@ -12,3 +12,11 @@ http://greenteapress.com/thinkpython/html/chap17.html
 collaborations
 ===============
 Larry Fritts
+
+Implementaitons
+===============
+1. Linked list
+2. Stack
+3. Queue
+4. Double linked list
+5. Binary Heap
