@@ -29,4 +29,9 @@ class BinHeap(object):
         self._swap()
 
     def pop(self):
-        pass
+        if len(self.heap_list) > 0:
+            copy = self.heap_list[1:]
+            temp = BinHeap(copy)
+            self.heap_list = temp.heap_list
+        else:
+            raise IndexError
