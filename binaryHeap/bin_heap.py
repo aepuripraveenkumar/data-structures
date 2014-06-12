@@ -9,7 +9,7 @@ class BinHeap(object):
             for i in items:
                 self.push(i)
 
-    def _swap(self):
+    def _swap_up(self):
         push_index = self.list_index - 1
         parent_index = (push_index-1)//2
         while parent_index > -1:
@@ -23,15 +23,36 @@ class BinHeap(object):
             else:
                 parent_index = -1  #changed to break out of loop
 
+
+    def _swap_down(self):
+        swap_index = 0
+        while True:
+            child = (2 * swap_index) + 1
+            if child > len(self.heap_list) - 1 or child+1 > len(self.heap_list) - 1:
+                break
+            print child, len(self.heap_list) - 1
+            if self.heap_list[child] > self.heap_list[child+1]:
+                child_index = child
+            elif self.heap_list[child] <= self.heap_list[child+1]:
+                child_index = child + 1
+
+            if self.heap_list[swap_index] < self.heap_list[child_index]:
+                self.heap_list[swap_index], self.heap_list[child_index] = \
+                    self.heap_list[child_index], self.heap_list[swap_index]
+                swap_index = child_index
+            else:
+                break
+
+
     def push(self, value):
         self.heap_list.append(value)
         self.list_index = len(self.heap_list)
-        self._swap()
+        self._swap_up()
 
     def pop(self):
-        if len(self.heap_list) > 0:
-            copy = self.heap_list[1:]
-            temp = BinHeap(copy)
-            self.heap_list = temp.heap_list
+        try:
+            self.heap_list[0] = self.heap_list.pop()
+        except IndexError:
+            raise
         else:
-            raise IndexError
+            self._swap_down()

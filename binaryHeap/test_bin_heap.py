@@ -58,7 +58,7 @@ def test_pop():
     work_bin.pop()
     work_bin.pop()
     work_bin.pop()
-    assert work_bin.heap_list == [2, 1, -1]
+    assert work_bin.heap_list == [2, -1, 1]
 
 
 def test_pop_empty():
