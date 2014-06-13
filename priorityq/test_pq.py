@@ -27,14 +27,7 @@ def test_insert_swap():
     work_pq.insert(97, "This is priority 97.")
     assert work_pq.priority_q[0].priority == 97
     assert work_pq.priority_q[0].message == "This is priority 97."
-    assert work_pq.priority_q[1].priority == 78
-    assert work_pq.priority_q[1].message == "This is priority 78."
-    assert work_pq.priority_q[2].priority == 80
-    assert work_pq.priority_q[2].message == "This is priority 80."
-    assert work_pq.priority_q[3].priority == 78
-    assert work_pq.priority_q[3].message == "This is priority 78-2."
-    assert work_pq.priority_q[5].priority == 5
-    assert work_pq.priority_q[5].message == "This is priority 5."
+
 
 def test_push_peek():
     """Tests PriorityQ correctly pushes value to PriorityQ"""
@@ -45,7 +38,7 @@ def test_push_peek():
     work_pq.insert(5, "This is priority 5.")
     work_pq.insert(25, "This is priority 25.")
     work_pq.insert(97, "This is priority 97.")
-    assert work_pq.peek == "97 - This is priority 97."
+    assert work_pq.peek() == "97 -- This is priority 97."
 
 
 
@@ -59,14 +52,9 @@ def test_pop():
     work_pq.insert(25, "This is priority 25.")
     work_pq.insert(97, "This is priority 97.")
     work_pq.pop()
-    assert work_pq.priority_q[1].priority == 80
-    assert work_pq.priority_q[1].message == "This is priority 80."
-    assert work_pq.priority_q[2].priority == 78
-    assert work_pq.priority_q[2].message == "This is priority 78."
-    assert work_pq.priority_q[3].priority == 78
-    assert work_pq.priority_q[3].message == "This is priority 78-2."
-    assert work_pq.priority_q[5].priority == 5
-    assert work_pq.priority_q[5].message == "This is priority 5."
+    assert work_pq.priority_q[0].priority == 80
+    assert work_pq.priority_q[0].message == "This is priority 80."
+
 
 
 def test_pop_empty():

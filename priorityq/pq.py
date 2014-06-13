@@ -65,7 +65,15 @@ class PriorityQ(object):
 
     def peek(self):
         try:
-            return self.priorty_q[0].priority + '-- ' + \
-                self.priorty_q[0].message
+            return str(self.priority_q[0].priority) + ' -- ' + \
+                self.priority_q[0].message
         except IndexError:
             print "The priority queue is empty."
+
+    def how_many_children(self):
+        while True:
+            n = 0
+            if (len(self.priority_q) - 2**n) < 2**n+1:
+                return len(self.priority_q) - 2**n+1
+            else:
+                n += 1
