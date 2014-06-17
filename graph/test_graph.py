@@ -14,11 +14,6 @@ def test_init_graph():
     assert len(newGraph.edgelist) == 0
 
 
-def test_init_edge():
-    newEdge = Edge()
-    assert len(newEdge.nodes) == 0
-
-
 def test_init_edge_w_nodes():
     node1 = Node("1st")
     node2 = Node("2nd")
