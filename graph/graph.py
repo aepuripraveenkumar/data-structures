@@ -25,8 +25,20 @@ class Graph(object):
     def nodes(self):
         return self.nodelist
 
+    def edges(self):
+        return self.edgelist
+
     def has_node(self, node_value):
         for node in self.nodelist:
             if node.value == node_value:
                 return True
         return False
+
+    def add_edge(self, node1, node2):
+        if not self.has_node(node1.value):
+            node1 = Node(node1.value)
+            self.add_node(node1)
+        if not self.has_node(node2.value):
+            node2 = Node(node2.value)
+            self.add_node(node2)
+        self.edgelist.append(Edge(node1, node2))

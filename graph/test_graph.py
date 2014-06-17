@@ -11,6 +11,9 @@ def graph_init():
     node3 = Node("Josh")
     newGraph = Graph()
     newGraph.add_node(node1, node2, node3)
+    newGraph.add_edge(node1, node2)
+    newGraph.add_edge(node2, node3)
+    newGraph.add_edge(node1, node3)
     return newGraph, node1, node2, node3
 
 
@@ -49,3 +52,12 @@ def test_graph_nodes_list(graph_init):
 def test_has_node(graph_init):
     assert graph_init[0].has_node("William") is True
     assert graph_init[0].has_node("Fred") is False
+
+
+def test_add_edge(graph_init):
+    graph_init[0].add_edge(graph_init[1], graph_init[2])
+    assert len(graph_init[0].edgelist) == 4
+
+
+def test_edge_list(graph_init):
+    assert len(graph_init[0].edges()) == 3
