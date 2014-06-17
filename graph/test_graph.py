@@ -1,6 +1,17 @@
+import pytest
 from graph import Node
 from graph import Graph
 from graph import Edge
+
+
+@pytest.fixture(scope='function')
+def graph_init():
+    node1 = Node("William")
+    node2 = Node("Ted")
+    node3 = Node("Josh")
+    newGraph = Graph()
+    newGraph.add_node(node1, node2, node3)
+    return newGraph, node1, node2, node3
 
 
 def test_init_node():
@@ -31,15 +42,10 @@ def test_add_node():
     assert len(newGraph.nodelist) == 1
 
 
-def test_graph_nodes_list():
-    node1 = Node("William")
-    node2 = Node("Ted")
-    node3 = Node("Josh")
-    newGraph = Graph()
-    newGraph.add_node(node1, node2, node3)
-    assert newGraph.nodes() == [node1, node2, node3]
+def test_graph_nodes_list(graph_init):
+    assert graph_init[0].nodelist == [graph_init[1], graph_init[2], graph_init[3]]
 
 
-def test_has_node():
-    newGraph = Graph()
-    node1 = Node
+def test_has_node(graph_init):
+    
+
