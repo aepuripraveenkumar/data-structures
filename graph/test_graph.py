@@ -47,5 +47,5 @@ def test_graph_nodes_list(graph_init):
 
 
 def test_has_node(graph_init):
-    
-
+    assert graph_init[0].has_node("William") is True
+    assert graph_init[0].has_node("Fred") is False

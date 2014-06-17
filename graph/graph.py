@@ -24,3 +24,9 @@ class Graph(object):
 
     def nodes(self):
         return self.nodelist
+
+    def has_node(self, node_value):
+        for node in self.nodelist:
+            if node.value == node_value:
+                return True
+        return False
