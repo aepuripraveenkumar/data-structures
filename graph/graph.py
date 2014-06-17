@@ -42,3 +42,13 @@ class Graph(object):
             node2 = Node(node2.value)
             self.add_node(node2)
         self.edgelist.append(Edge(node1, node2))
+
+    def del_edge(self, node1, node2):
+        removed = False
+        for edge in self.edgelist:
+            if node1 in edge.nodes and node2 in edge.nodes:
+                self.edgelist.remove(edge)
+                removed = True
+                break
+        if not removed:
+            raise IndexError
