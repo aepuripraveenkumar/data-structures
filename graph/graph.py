@@ -17,3 +17,10 @@ class Graph(object):
     def __init__(self):
         self.nodelist = []
         self.edgelist = []
+
+    def add_node(self, *args):
+        for arg in args:
+            self.nodelist.append(arg)
+
+    def nodes(self):
+        return self.nodelist
