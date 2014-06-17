@@ -9,5 +9,5 @@ def test_init_node():
 
 def test_init_graph():
     newGraph = Graph()
-    assert newGraph.nodelist is None
-    assert newGraph.edgelist is None
+    assert len(newGraph.nodelist) == 0
+    assert len(newGraph.edgelist) == 0
