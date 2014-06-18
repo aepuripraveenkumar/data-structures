@@ -46,7 +46,8 @@ def test_add_node():
 
 
 def test_graph_nodes_list(graph_init):
-    assert graph_init[0].nodelist == [graph_init[1], graph_init[2], graph_init[3]]
+    assert graph_init[0].nodelist == [graph_init[1], graph_init[2],
+                                      graph_init[3]]
 
 
 def test_has_node(graph_init):
@@ -70,5 +71,23 @@ def test_delete_edge(graph_init):
 
 def test_delete_edge_error(graph_init):
     graph_init[0].del_edge(graph_init[1], graph_init[2])
-    with pytest.raises(IndexError):
+    with pytest.raises(ValueError):
         graph_init[0].del_edge(graph_init[1], graph_init[2])
+
+
+def test_delete_node(graph_init):
+    graph_init[0].del_node(graph_init[1])
+    assert graph_init[0].has_node(graph_init[1]) is False
+    assert graph_init[0].edgelist[0].nodes[0] == graph_init[2]
+    assert graph_init[0].edgelist[0].nodes[1] == graph_init[3]
+    with pytest.raises(ValueError):
+        graph_init[0].del_node(graph_init[1])
+
+
+def test_adjacent(graph_init):
+    node5 = Node("What?")
+    graph_init[0].del_edge(graph_init[1], graph_init[2])
+    assert graph_init[0].adjacent(graph_init[2], graph_init[3]) is True
+    assert graph_init[0].adjacent(graph_init[1], graph_init[2]) is False
+    with pytest.raises(ValueError):
+        graph_init[0].adjacent(graph_init[1], node5)

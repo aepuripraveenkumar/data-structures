@@ -51,4 +51,27 @@ class Graph(object):
                 removed = True
                 break
         if not removed:
-            raise IndexError
+            raise ValueError
+
+    def del_node(self, node1):
+        removed = False
+        for item in self.nodelist:
+            if item.value == node1.value:
+                self.nodelist.remove(item)
+                removed = True
+                break
+        if removed:
+            for item in self.edgelist:
+                if node1 in item.nodes:
+                    self.edgelist.remove(item)
+        else:
+            raise ValueError
+
+    def adjacent(self, node1, node2):
+        if not self.has_node(node1.value) or \
+                not self.has_node(node2.value):
+            raise ValueError
+        for item in self.edgelist:
+            if node1 in item.nodes and node2 in item.nodes:
+                return True
+        return False
