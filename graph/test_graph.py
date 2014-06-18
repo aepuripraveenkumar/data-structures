@@ -72,3 +72,14 @@ def test_delete_edge_error(graph_init):
     graph_init[0].del_edge(graph_init[1], graph_init[2])
     with pytest.raises(IndexError):
         graph_init[0].del_edge(graph_init[1], graph_init[2])
+
+
+def test_positive_neighbors(graph_init):
+    assert graph_init[0].neighbors(graph_init[1]) == [graph_init[2], graph_init[3]]
+
+
+def test_negative_neighbors(graph_init):
+    pass
+
+
+

@@ -52,3 +52,18 @@ class Graph(object):
                 break
         if not removed:
             raise IndexError
+
+    def neighbors(self, node):
+        self.return_list = []
+        if self.has_node(node.value):
+            for edge in self.edgelist:
+                if node == edge.nodes[0]:
+                    self.return_list.append(edge.nodes[1])
+                elif node == edge.nodes[1]:
+                    self.return_list.append(edge.nodes[0])
+                else:
+                    pass
+        else:
+            raise ValueError
+        return self.return_list
+
