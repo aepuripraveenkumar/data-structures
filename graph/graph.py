@@ -75,3 +75,14 @@ class Graph(object):
             if node1 in item.nodes and node2 in item.nodes:
                 return True
         return False
+
+    def neighbors(self, node1):
+        n_list = []
+        if not self.has_node(node1.value):
+            raise ValueError
+        for item in self.edgelist:
+            if item.nodes[0] == node1:
+                n_list.append(item.nodes[1])
+            elif item.nodes[1] == node1:
+                n_list.append(item.nodes[0])
+        return n_list

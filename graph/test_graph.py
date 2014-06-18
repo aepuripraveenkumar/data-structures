@@ -91,3 +91,10 @@ def test_adjacent(graph_init):
     assert graph_init[0].adjacent(graph_init[1], graph_init[2]) is False
     with pytest.raises(ValueError):
         graph_init[0].adjacent(graph_init[1], node5)
+
+def test_neighbors(graph_init):
+    node5 = Node("What?")
+    return_list = graph_init[0].neighbors(graph_init[1])
+    assert graph_init[2] in return_list and graph_init[3] in return_list
+    with pytest.raises(ValueError):
+        graph_init[0].neighbors(node5) == [graph_init[2]]
