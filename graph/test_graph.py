@@ -79,7 +79,21 @@ def test_positive_neighbors(graph_init):
 
 
 def test_negative_neighbors(graph_init):
-    pass
+    node5 = Node("Harold")
+    with pytest.raises(ValueError):
+        graph_init[0].neighbors(node5)
 
 
+def test_positive_adjacent(graph_init):
+    assert graph_init[0].adjacent(graph_init[1], graph_init[2]) is True
 
+
+def test_negative_adjacent(graph_init):
+    graph_init[0].del_edge(graph_init[1], graph_init[2])
+    graph_init[0].adjacent(graph_init[1], graph_init[2]) is False
+
+
+def test_error_adjacent(graph_init):
+    node5 = Node("Harold")
+    with pytest.raises(ValueError):
+        graph_init[0].adjacent(node5, graph_init[1])

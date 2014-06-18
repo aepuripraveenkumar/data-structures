@@ -67,3 +67,12 @@ class Graph(object):
             raise ValueError
         return self.return_list
 
+    def adjacent(self, node1, node2):
+        if self.has_node(node1.value) and self.has_node(node2.value):
+            for edge in self.edgelist:
+                if node1 in edge.nodes:
+                    if node2 in edge.nodes:
+                        return True
+            return False
+        else:
+            raise ValueError
