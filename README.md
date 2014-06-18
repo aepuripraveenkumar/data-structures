@@ -20,3 +20,4 @@ Implementaitons
 3. Queue
 4. Double linked list
 5. Binary Heap
+6. Graph
