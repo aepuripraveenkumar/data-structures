@@ -38,18 +38,27 @@ class Graph(object):
         """deletes node n from graph
            raises error if no such node exists"""
         if n in self.graph.keys():
-            self.graph.remove(n)
+            del self.graph[n]
+            for i in self.graph.keys():
+                if n in self.graph[i]:
+                    self.graph[i].pop(n)
         else:
             raise ValueError
 
     def del_edge(self, n1, n2):
         """deletes edge containing n1 and n2 from graph
            raises error if no such node exists"""
-        pass
+        if n1 in self.graph.keys():
+            self.graph[n1].pop(n2)
+        else:
+            raise ValueError
 
     def has_node(self, n):
-        """True if ndoe n is contained in graph, otherwise False"""
-        pass
+        """True if node n is contained in graph, otherwise False"""
+        if n in self.graph.keys():
+            return True
+        else:
+            return False
 
     def neighbors(self, n):
         """Returns list of all nodes connected to n by edges
