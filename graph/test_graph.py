@@ -98,3 +98,10 @@ def test_neighbors(graph_init):
     assert graph_init[2] in return_list and graph_init[3] in return_list
     with pytest.raises(ValueError):
         graph_init[0].neighbors(node5) == [graph_init[2]]
+
+def test_depth(graph_init):
+    pass
+
+
+def test_breadth(graph_init):
+    pass
