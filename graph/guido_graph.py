@@ -70,3 +70,10 @@ class Graph(object):
                 return False
         else:
             raise ValueError
+
+    def breadth_first_traversal(self, start):
+        """Perfors full breadth-first traversal of graph
+           begainning at start.  Returns full visited path
+           when traversal is complete"""
+
+        
