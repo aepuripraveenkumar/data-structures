@@ -86,3 +86,9 @@ class Graph(object):
             elif item.nodes[1] == node1:
                 n_list.append(item.nodes[0])
         return n_list
+
+    def depth_first_traversal(self, start):
+        pass
+
+    def breadth_first_traversal(self, start):
+        pass

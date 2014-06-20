@@ -8,6 +8,7 @@ This repository will hold sample code for a number of classic data structures im
 resources used
 ===============
 http://greenteapress.com/thinkpython/html/chap17.html
+https://www.python.org/doc/essays/graphs/  -- for guido_graph
 
 collaborations
 ===============
