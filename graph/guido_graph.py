@@ -41,7 +41,7 @@ class Graph(object):
             del self.graph[n]
             for i in self.graph.keys():
                 if n in self.graph[i]:
-                    self.graph[i].pop(n)
+                    self.graph[i].remove(n)
         else:
             raise ValueError
 
@@ -63,7 +63,10 @@ class Graph(object):
     def neighbors(self, n):
         """Returns list of all nodes connected to n by edges
            raises an error if n is not in g"""
-        pass
+        if self.has_node(n):
+            return [neighbor for neighbor in self.graph[n]]
+        else:
+            raise ValueError
 
     def adjacent(self, n1, n2):
         """returns True if there is an edge connecting n1 and n2
