@@ -76,3 +76,34 @@ def test_neighbors_negative():
     graph1.add_node('C')
     with pytest.raises(ValueError):
         graph1.neighbors('D')
+
+
+def test_adjacent_positive():
+    graph1 = Graph()
+    graph1.add_node('A')
+    graph1.add_node('B')
+    graph1.add_node('C')
+    graph1.add_edge('A', 'B')
+    graph1.add_edge('C', 'A')
+    assert graph1.adjacent('A', 'B')
+
+
+def test_adjacent_negative():
+    graph1 = Graph()
+    graph1.add_node('A')
+    graph1.add_node('B')
+    graph1.add_node('C')
+    graph1.add_edge('A', 'B')
+    graph1.add_edge('C', 'A')
+    assert graph1.adjacent('B', 'C') is False
+
+
+def test_adjacent_error():
+    graph1 = Graph()
+    graph1.add_node('A')
+    graph1.add_node('B')
+    graph1.add_node('C')
+    graph1.add_edge('A', 'B')
+    graph1.add_edge('C', 'A')
+    with pytest.raises(ValueError):
+        graph1.adjacent('D', 'C')
