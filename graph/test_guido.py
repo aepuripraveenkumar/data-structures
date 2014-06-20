@@ -28,12 +28,14 @@ def test_add_edge_no_node():
     graph1 = Graph()
     graph1.add_edge('A', 'B')
     assert graph1.edges() == [('A', 'B')]
+    assert graph1.nodes() == ['A', 'B']
 
 
 def test_del_node():
     graph1 = Graph()
     graph1.add_node('A')
     graph1.add_node('B')
+    assert graph1.nodes() == ['A', 'B']
     graph1.del_node('B')
     assert graph1.nodes() == ['A']
 
