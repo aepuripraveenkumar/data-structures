@@ -46,7 +46,7 @@ class Graph(object):
 
     def has_node(self, n):
         """True if node n is contained in graph, otherwise False"""
-        if n in self.graph.keys():
+        if n in self.nodes():
             return True
         else:
             return False
