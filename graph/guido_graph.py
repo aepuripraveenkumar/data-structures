@@ -39,7 +39,7 @@ class Graph(object):
     def del_edge(self, n1, n2):
         """deletes edge containing n1 and n2 from graph
            raises error if no such node exists"""
-        if n1 in self.graph.keys():
+        if n1 in self.nodes():
             self.graph[n1].pop(n2)
         else:
             raise ValueError
