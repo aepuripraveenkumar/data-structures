@@ -94,6 +94,7 @@ class Graph(object):
 
 
     def breadth_first_traversal(self, start, path=[]):
+        """Performs an interative breadth-first traversal"""
         node_q = [start]
         while node_q:
             current_node = node_q.pop(0)
