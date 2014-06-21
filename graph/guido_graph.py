@@ -78,7 +78,51 @@ class Graph(object):
            begainning at start.  Returns full visited path
            when traversal is complete"""
 
-        self.queue = Queue()
-        # add start's nodes to queue
-        self.queue.enqueue(self.neighbors(start))
+        self.q = Queue()
+        initPath = [start]
+        fullpath = []
+        self.q.enqueue(initPath)
+        while len(self.queue) != 0:
+            tmpPath = self.q.dequeue()
+            lastNode = tmpPath[len(tmpPath)-1]
+            fullpath.append(tmpPath)
+            for node in self.neighbors(lastNode):
+                if node not in tmpPath:
+                    newPath = tmpPath + [node]
+                    self.q.enqueue(newPath)
+        for i in fullpath:
+            print i
+
+
+if __name__ == '__main__':
+    graph1 = Graph()
+    graph1.add_node('A')
+    graph1.add_node('B')
+    graph1.add_node('C')
+    graph1.add_node('D')
+    graph1.add_edge('A', 'B')
+    graph1.add_edge('A', 'C')
+    graph1.add_edge('B', 'C')
+    graph1.add_edge('B', 'D')
+    graph1.breadth_first_traversal('A')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
