@@ -1,3 +1,5 @@
+from queue import Node, Queue
+
 
 class Graph(object):
     def __init__(self):
@@ -76,4 +78,5 @@ class Graph(object):
            begainning at start.  Returns full visited path
            when traversal is complete"""
 
-        
+        queue = Queue()
+
