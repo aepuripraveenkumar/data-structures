@@ -9,6 +9,7 @@ resources used
 ===============
 http://greenteapress.com/thinkpython/html/chap17.html
 https://www.python.org/doc/essays/graphs/  -- for guido_graph
+Introduction to Computation and Programming by Eric Grimson -- Breadth First Search
 
 collaborations
 ===============
