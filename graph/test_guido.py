@@ -110,16 +110,47 @@ def test_adjacent_error():
         graph1.adjacent('D', 'C')
 
 
-
 def test_BFT():
     graph1 = Graph()
     graph1.add_node('A')
     graph1.add_node('B')
     graph1.add_node('C')
     graph1.add_node('D')
+    graph1.add_node('E')
     graph1.add_edge('A', 'B')
     graph1.add_edge('A', 'C')
-    graph1.add_edge('B', 'C')
     graph1.add_edge('B', 'D')
-    graph1.breadth_first_traversal('A')
-    assert graph1.q.tail.node_name == ['A', 'B', 'D']
+    graph1.add_edge('B', 'E')
+    graph1.add_edge('C', 'D')
+    graph1.add_edge('C', 'E')
+    graph1.add_edge('D', 'E')
+    graph1.add_edge('E', 'A')
+    print graph1.breadth_first_traversal('A')
+    assert graph1.breadth_first_traversal('A') == \
+        [['A'], ['A', 'B'], ['A', 'C'], ['A', 'B', 'D'], ['A', 'B', 'E'],
+         ['A', 'C', 'D'], ['A', 'C', 'E'], ['A', 'B', 'D', 'E'],
+         ['A', 'C', 'D', 'E']]
+    assert graph1.q.tail.node_name == ['A', 'C', 'D', 'E']
+
+
+def test_DFT():
+    graph1 = Graph()
+    graph1.add_node('A')
+    graph1.add_node('B')
+    graph1.add_node('C')
+    graph1.add_node('D')
+    graph1.add_node('E')
+    graph1.add_edge('A', 'B')
+    graph1.add_edge('A', 'C')
+    graph1.add_edge('B', 'D')
+    graph1.add_edge('B', 'E')
+    graph1.add_edge('C', 'D')
+    graph1.add_edge('C', 'E')
+    graph1.add_edge('D', 'E')
+    graph1.add_edge('E', 'A')
+    print graph1.depth_first_traversal_recursive('A')
+    assert graph1.depth_first_traversal_recursive('A') == \
+        [['A'], ['A', 'B'], ['A', 'C'], ['A', 'B', 'D'], ['A', 'B', 'E'],
+         ['A', 'C', 'D'], ['A', 'C', 'E'], ['A', 'B', 'D', 'E'],
+         ['A', 'C', 'D', 'E']]
+

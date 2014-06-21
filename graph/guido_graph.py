@@ -73,24 +73,43 @@ class Graph(object):
         else:
             raise ValueError
 
-    def breadth_first_traversal(self, start):
-        """Perfors full breadth-first traversal of graph
-           begainning at start.  Returns full visited path
-           when traversal is complete"""
+    # def breadth_first_traversal(self, start):
+    #     """Performs full breadth-first traversal of graph
+    #        beginning at start.  Returns full visited path
+    #        when traversal is complete"""
 
-        self.q = Queue()
-        initPath = [start]
-        fullpath = []
-        self.q.enqueue(initPath)
-        while self.q.size != 0:
-            tmpPath = self.q.dequeue()
-            lastNode = tmpPath[len(tmpPath)-1]
-            fullpath.append(tmpPath)
-            for node in self.neighbors(lastNode):
-                if node not in tmpPath:
-                    newPath = tmpPath + [node]
-                    self.q.enqueue(newPath)
-        return fullpath
+    #     self.q = Queue()
+    #     initPath = [start]
+    #     fullpath = []
+    #     self.q.enqueue(initPath)
+    #     while self.q.size != 0:
+    #         tmpPath = self.q.dequeue()
+    #         lastNode = tmpPath[len(tmpPath)-1]
+    #         fullpath.append(tmpPath)
+    #         for node in self.neighbors(lastNode):
+    #             if node not in tmpPath:
+    #                 newPath = tmpPath + [node]
+    #                 self.q.enqueue(newPath)
+    #     return fullpath
+
+
+    def breadth_first_traversal(self, start, path=[]):
+        node_q = [start]
+        while node_q:
+            current_node = node_q.pop(0)
+            if current_node not in path:
+                path = path + current_node
+                node_q = node_q + self.neighbors(current_node)
+        return path
+
+
+    def depth_first_traversal_recursive(self, start, path=[]):
+        """Performs a recursive depth-first traversal"""
+        path = path + [start]
+        for node in self.neighbors(start):
+            if node not in path:
+                path = self.depth_first_traversal_recursive(node, path)
+        return path
 
 
 # if __name__ == '__main__':
