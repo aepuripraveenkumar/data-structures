@@ -93,17 +93,20 @@ class Graph(object):
         return fullpath
 
 
-# if __name__ == '__main__':
-#     graph1 = Graph()
-#     graph1.add_node('A')
-#     graph1.add_node('B')
-#     graph1.add_node('C')
-#     graph1.add_node('D')
-#     graph1.add_edge('A', 'B')
-#     graph1.add_edge('A', 'C')
-#     graph1.add_edge('B', 'C')
-#     graph1.add_edge('B', 'D')
-#     graph1.breadth_first_traversal('A')
+if __name__ == '__main__':
+    graph1 = Graph()
+    graph1.add_node('A')
+    graph1.add_node('B')
+    graph1.add_node('C')
+    graph1.add_node('D')
+    graph1.add_edge('A', 'B')
+    graph1.add_edge('A', 'C')
+    graph1.add_edge('B', 'C')
+    graph1.add_edge('B', 'D')
+    graph1.add_edge('C', 'D')
+    graph1.add_edge('C', 'A')
+    for i in graph1.breadth_first_traversal('A'):
+        print i
 
 
 
