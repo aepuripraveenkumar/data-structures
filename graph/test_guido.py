@@ -1,5 +1,6 @@
 import pytest
 from guido_graph import Graph
+from queue import Node, Queue
 
 
 def test_add_node():
@@ -107,3 +108,14 @@ def test_adjacent_error():
     graph1.add_edge('C', 'A')
     with pytest.raises(ValueError):
         graph1.adjacent('D', 'C')
+
+
+def test_add_to_queue():
+    graph1 = Graph()
+    graph1.add_node('A')
+    graph1.add_node('B')
+    graph1.add_node('C')
+    graph1.add_edge('A', 'B')
+    graph1.add_edge('A', 'C')
+    graph1.breadth_first_traversal('A')
+    assert graph1.queue.head.node_name == ['B', 'C']

@@ -78,5 +78,7 @@ class Graph(object):
            begainning at start.  Returns full visited path
            when traversal is complete"""
 
-        queue = Queue()
+        self.queue = Queue()
+        # add start's nodes to queue
+        self.queue.enqueue(self.neighbors(start))
 
