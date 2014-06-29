@@ -1,4 +1,4 @@
-from queue import Node, Queue
+# from queue import Node, Queue
 
 
 class Graph(object):
@@ -25,7 +25,12 @@ class Graph(object):
             self.graph[n1] = []
         if n2 not in self.nodes():
             self.graph[n2] = []
-        self.graph[n1].append(n2)
+        # checks if the edge already exists before adding the edge
+        # if it exists it is not added; the edge could be stored in
+        # either node.
+        if n2 not in self.graph[n1]:
+            if n1 not in self.graph[n2]:
+                self.graph[n1].append(n2)
 
     def del_node(self, n):
         """deletes node n from graph
@@ -73,35 +78,14 @@ class Graph(object):
         else:
             raise ValueError
 
-    # def breadth_first_traversal(self, start):
-    #     """Performs full breadth-first traversal of graph
-    #        beginning at start.  Returns full visited path
-    #        when traversal is complete"""
-
-    #     self.q = Queue()
-    #     initPath = [start]
-    #     fullpath = []
-    #     self.q.enqueue(initPath)
-    #     while self.q.size != 0:
-    #         tmpPath = self.q.dequeue()
-    #         lastNode = tmpPath[len(tmpPath)-1]
-    #         fullpath.append(tmpPath)
-    #         for node in self.neighbors(lastNode):
-    #             if node not in tmpPath:
-    #                 newPath = tmpPath + [node]
-    #                 self.q.enqueue(newPath)
-    #     return fullpath
-
-
     def breadth_first_traversal(self, start, path=[]):
         node_q = [start]
         while node_q:
             current_node = node_q.pop(0)
             if current_node not in path:
-                path = path + current_node
+                path.append(current_node)
                 node_q = node_q + self.neighbors(current_node)
         return path
-
 
     def depth_first_traversal_recursive(self, start, path=[]):
         """Performs a recursive depth-first traversal"""
@@ -110,21 +94,6 @@ class Graph(object):
             if node not in path:
                 path = self.depth_first_traversal_recursive(node, path)
         return path
-
-
-# if __name__ == '__main__':
-#     graph1 = Graph()
-#     graph1.add_node('A')
-#     graph1.add_node('B')
-#     graph1.add_node('C')
-#     graph1.add_node('D')
-#     graph1.add_edge('A', 'B')
-#     graph1.add_edge('A', 'C')
-#     graph1.add_edge('B', 'C')
-#     graph1.add_edge('B', 'D')
-#     graph1.breadth_first_traversal('A')
-
-
 
 
 
