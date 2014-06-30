@@ -27,3 +27,6 @@ Implementaitons
 6. Graph
     a. Changed the edge from a list to a dictionary with keys being the other
     vertex and the value being the weight.
+
+
+**Added Travis**
