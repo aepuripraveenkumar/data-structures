@@ -53,7 +53,7 @@ def test_pop():
     work_pq.insert(97, "This is priority 97.")
     work_pq.pop()
     assert work_pq.priority_q[0].priority == 80
-    assert work_pq.priority_q[0].message == "This is priority 80."
+    assert work_pq.priority_q[0].message == "This is priority 78."
 
 
 
