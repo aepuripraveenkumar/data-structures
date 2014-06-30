@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/johnshiver/data-structures.png)](https://travis-ci.org/johnshiver/data-structures)
+
 data-structures
 ===============
 
