@@ -23,3 +23,5 @@ Implementaitons
 4. Double linked list
 5. Binary Heap
 6. Graph
+    a. Changed the edge from a list to a dictionary with keys being the other
+    vertex and the value being the weight.
