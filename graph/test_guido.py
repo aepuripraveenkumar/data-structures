@@ -1,6 +1,5 @@
 import pytest
 from guido_graph import Graph
-from queue import Node, Queue
 
 
 def test_add_node():
@@ -125,16 +124,14 @@ def test_BFT():
     graph1.add_node('B')
     graph1.add_node('C')
     graph1.add_node('D')
-    graph1.add_node('E')
     graph1.add_edge('A', 'B')
     graph1.add_edge('A', 'C')
-    graph1.add_edge('B', 'D')
-    graph1.add_edge('B', 'E')
     graph1.add_edge('C', 'D')
-    graph1.add_edge('C', 'E')
-    graph1.add_edge('D', 'E')
-    graph1.add_edge('E', 'A')
-    assert graph1.breadth_first_traversal('A') == ['A', 'B', 'C', 'D', 'E']
+    path = graph1.breadth_first_traversal('A')
+    assert 'A' in path
+    assert 'B' in path
+    assert 'C' in path
+    assert 'D' in path
 
 
 def test_DFT():
@@ -143,14 +140,25 @@ def test_DFT():
     graph1.add_node('B')
     graph1.add_node('C')
     graph1.add_node('D')
-    graph1.add_node('E')
-    graph1.add_edge('A', 'B')
     graph1.add_edge('A', 'C')
+    graph1.add_edge('A', 'B')
     graph1.add_edge('B', 'D')
-    graph1.add_edge('B', 'E')
     graph1.add_edge('C', 'D')
-    graph1.add_edge('C', 'E')
-    graph1.add_edge('D', 'E')
-    graph1.add_edge('E', 'A')
-    assert graph1.depth_first_traversal_recursive('A') == ['A', 'B', 'D', 'E', 'C']
+    path = graph1.depth_first_traversal_recursive('A')
+    assert 'A' in path
+    assert 'B' in path
+    assert 'C' in path
+    assert 'D' in path
+
+def test_weight_values():
+    graph1 = Graph()
+    graph1.add_node('A')
+    graph1.add_node('B')
+    graph1.add_node('C')
+    graph1.add_edge('A', 'B', 1)
+    graph1.add_edge('A', 'C', 25)
+    assert graph1.graph['A']['B'] == 1
+    assert graph1.graph['A']['C'] == 25
+    with pytest.raises(KeyError):
+        graph1.graph['B']['C']
 

@@ -16,21 +16,18 @@ class Graph(object):
     def add_node(self, n):
         """adds new node 'n' to graph"""
         if n not in self.nodes():
-            self.graph[n] = []
+            self.graph[n] = {}
 
-    def add_edge(self, n1, n2):
+    def add_edge(self, n1, n2, weight=0):
         """"adds new edge to graph connecting n1 and n2
             if either n1 or n2 are not already in graph, adds them"""
         if n1 not in self.nodes():
-            self.graph[n1] = []
+            self.add_node(n1)
         if n2 not in self.nodes():
-            self.graph[n2] = []
-        # checks if the edge already exists before adding the edge
-        # if it exists it is not added; the edge could be stored in
-        # either node.
-        if n2 not in self.graph[n1]:
-            if n1 not in self.graph[n2]:
-                self.graph[n1].append(n2)
+            self.add_node(n2)
+        if n2 not in self.graph[n1].keys():
+            if n1 not in self.graph[n2].keys():
+                self.graph[n1][n2] = weight
 
     def del_node(self, n):
         """deletes node n from graph
@@ -39,7 +36,7 @@ class Graph(object):
             del self.graph[n]
             for i in self.nodes():
                 if n in self.graph[i]:
-                    self.graph[i].remove(n)
+                    del self.graph[i][n]
         else:
             raise ValueError
 
