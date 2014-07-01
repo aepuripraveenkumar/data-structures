@@ -31,4 +31,11 @@ Implementaitons
     vertex and the value being the weight.
 7. Dijkstra added to graph
 
+Bellman_Ford Algo:
+
+The reason you would choose Bellman over Dijkstra is that Bellman can be used
+for graphs with negative edge values. This makes it useful for a system with
+financial transactions, where it is inevitable that some investements will
+return a negative number.
+
 **Added Travis**
