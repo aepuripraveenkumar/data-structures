@@ -5,7 +5,6 @@ INF = float('Inf')
 
 def bellman_ford_algo(graph, root_node, final_node):
     """
-    Bellman ford shortest path algorithm, checks if graph is negative
     Checks every edge at each iteration
     Assumes there is not a negative cycle, checks for that in bottom for loop
     """
