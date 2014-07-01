@@ -9,9 +9,12 @@ class Graph(object):
         """return list of all nodes in graph"""
         return self.graph.keys()
 
-    def edges(self):
+    def edges(self, node=None):
         """return list of all edges in graph"""
-        return [(i, e) for i in self.nodes() for e in self.graph[i]]
+        if node is None:
+            return [(i, e) for i in self.nodes() for e in self.graph[i]]
+        else:
+            return [i for i in self.graph[node].keys()]
 
     def add_node(self, n):
         """adds new node 'n' to graph"""
@@ -48,6 +51,9 @@ class Graph(object):
         else:
             raise ValueError
 
+    def get_weight(self, n, m):
+        return self.graph[n][m]
+
     def has_node(self, n):
         """True if node n is contained in graph, otherwise False"""
         if n in self.nodes():
@@ -59,7 +65,7 @@ class Graph(object):
         """Returns list of all nodes connected to n by edges
            raises an error if n is not in g"""
         if self.has_node(n):
-            return [neighbor for neighbor in self.graph[n]]
+            return self.graph[n].keys()
         else:
             raise ValueError
 
