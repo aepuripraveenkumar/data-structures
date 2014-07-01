@@ -13,6 +13,7 @@ http://greenteapress.com/thinkpython/html/chap17.html
 https://www.python.org/doc/essays/graphs/  -- for guido_graph
 Introduction to Computation and Programming by Eric Grimson -- Breadth First Search
 https://www.youtube.com/watch?v=05WQNgR4Urk  -- for bellman_ford algorithm
+gist.gisthub.com/econchick/4666413 -- for Dijkstra
 
 collaborations
 ===============
@@ -28,6 +29,6 @@ Implementaitons
 6. Graph
     a. Changed the edge from a list to a dictionary with keys being the other
     vertex and the value being the weight.
-
+7. Dijkstra added to graph
 
 **Added Travis**
