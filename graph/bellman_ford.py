@@ -1,5 +1,4 @@
-# graph[n1][n2] is weight
-from guido_graph import Graph
+
 
 INF = float('Inf')
 
@@ -17,10 +16,12 @@ def bellman_ford_algo(graph, root_node, final_node):
     for node in graph.nodes():
         distances[node] = 0 if node == root_node else INF
 
+    # weight = graph.graph[edge[0]][edge[1]]
     # repeat nodes-1 times
     for i in range(1, len(graph.nodes())):
         # iterate over every edge
         for edge in graph.edges():
+                # n1 is edge[0], n2 is edge[1]
                 # if edge can be relaxed, relax it
                 if distances[edge[1]] > distances[edge[0]] + graph.graph[edge[0]][edge[1]]:
                     distances[edge[1]] = distances[edge[0]] + graph.graph[edge[0]][edge[1]]
