@@ -13,6 +13,7 @@ http://greenteapress.com/thinkpython/html/chap17.html
 https://www.python.org/doc/essays/graphs/  -- for guido_graph
 Introduction to Computation and Programming by Eric Grimson -- Breadth First Search
 https://www.youtube.com/watch?v=05WQNgR4Urk  -- for bellman_ford algorithm
+http://stackoverflow.com/questions/2592769/what-is-the-relaxation-condition-in-graph-theory - Understanding relaxing
 gist.gisthub.com/econchick/4666413 -- for Dijkstra
 
 collaborations
@@ -30,5 +31,12 @@ Implementaitons
     a. Changed the edge from a list to a dictionary with keys being the other
     vertex and the value being the weight.
 7. Dijkstra added to graph
+
+Bellman_Ford Algo:
+
+The reason you would choose Bellman over Dijkstra is that Bellman can be used
+for graphs with negative edge values. This makes it useful for a system with
+financial transactions, where it is inevitable that some investements will
+return a negative number.
 
 **Added Travis**
