@@ -63,3 +63,16 @@ def test_dkystra_4():
 
     assert path == ['B', 'D', 'C']
     assert distance == 4
+
+def test_dykstra_5():
+    graph1 = guido_graph.Graph()
+    graph1.add_edge('A', 'B', 20)
+    graph1.add_edge('A', 'C', 3)
+    graph1.add_edge('C', 'D', 2)
+    graph1.add_edge('C', 'E', 1)
+    graph1.add_edge('D', 'F', 1)
+    graph1.add_edge('F', 'B', 5)
+
+    path, distance = dijkstra(graph1, 'A', 'B')
+    assert path == ['A', 'C', 'D', 'F', 'B']
+    assert distance == 11
