@@ -110,3 +110,66 @@ def test_depth_tricky():
     myBST.insert(node5)
     myBST.insert(node6)
     assert myBST.depth == 5
+
+
+def test_pre_order():
+    myBST = BST()
+    node1 = Node(20)
+    node2 = Node(23)
+    node3 = Node(10)
+    node4 = Node(18)
+    node5 = Node(9)
+    node6 = Node(21)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    generator = myBST.pre_order(myBST.root)
+    list1 = []
+    for i in generator:
+        list1.append(i)
+    assert list1 == [20, 10, 9, 18, 23, 21]
+
+
+def test_in_order():
+    myBST = BST()
+    node1 = Node(20)
+    node2 = Node(23)
+    node3 = Node(10)
+    node4 = Node(18)
+    node5 = Node(9)
+    node6 = Node(21)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    generator = myBST.in_order(myBST.root)
+    list1 = []
+    for i in generator:
+        list1.append(i)
+    assert list1 == [9, 10, 18, 20, 21, 23]
+
+
+def test_post_order():
+    myBST = BST()
+    node1 = Node(20)
+    node2 = Node(23)
+    node3 = Node(10)
+    node4 = Node(18)
+    node5 = Node(9)
+    node6 = Node(21)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    generator = myBST.post_order(myBST.root)
+    list1 = []
+    for i in generator:
+        list1.append(i)
+    assert list1 == [9, 18, 10, 21, 23, 20]
