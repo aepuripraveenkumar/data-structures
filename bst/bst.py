@@ -13,24 +13,54 @@ class BST(object):
     def __init__(self):
         self.root = None
         self.values = []
+        self.depth = 0
 
-    def insert(self, value):
+    def insert(self, new):
         """
-        will insert the value val into the BST.  If val is already present, it will be ignored.
+        will insert the value val into the BST.
+        If val is already present it will be ignored.
         """
-        if not self.contains(value):
+        if not self.contains(new):
+            self.temp_depth = 1
             if not self.root:
-                self.root = value
+                self.root = new
+                self.values.append(new.value)
+                self.depth += 1
+            else:
+                inserting = True
+                top = self.root
+                while inserting:
+                    if new.value < top.value:
+                        if top.left:
+                            top = top.left
+                            self.temp_depth += 1
+                        else:
+                            top.left = new
+                            self.values.append(new.value)
+                            self.temp_depth += 1
+                            if self.temp_depth > self.depth:
+                                self.depth = self.temp_depth
+                            inserting = False
+                    else:
+                        if top.right:
+                            top = top.right
+                            self.temp_depth += 1
+                        else:
+                            top.right = new
+                            self.values.append(new.value)
+                            self.temp_depth += 1
+                            if self.temp_depth > self.depth:
+                                self.depth = self.temp_depth
+                            inserting = False
         else:
             print "The tree doesnt need duplicate seeds"
+            raise ValueError
 
-
-
-    def contains(self, val):
+    def contains(self, Node):
         """
         Will return True if val is in BST, else False
         """
-        if val in self.values:
+        if Node.value in self.values:
             return True
         else:
             return False
@@ -40,14 +70,14 @@ class BST(object):
         will return in size of the BST, equal to the number of
         values stored in the tree, 0 if tree is empty
         """
-        pass
+        return len(self.values)
 
     def depth(self):
         """
         return an integer representing the total number of levels in
         tree.
         """
-        pass
+        return self.depth
 
     def balance(self):
         """
