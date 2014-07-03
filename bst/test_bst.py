@@ -93,3 +93,20 @@ def test_depth_easy():
     myBST.insert(node4)
     myBST.insert(node5)
     assert myBST.depth == 4
+
+
+def test_depth_tricky():
+    myBST = BST()
+    node1 = Node(10)
+    node2 = Node(9)
+    node3 = Node(8)
+    node4 = Node(7)
+    node5 = Node(6)
+    node6 = Node(11)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    assert myBST.depth == 5

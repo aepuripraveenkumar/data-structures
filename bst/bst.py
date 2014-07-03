@@ -64,6 +64,11 @@ class BST(object):
             return True
         else:
             return False
+        # top = self.root
+        # if Node.value == top.value:
+        #     return True
+        # elif Node.value < top.value:
+        #     top = top.left
 
     def size(self):
         """
