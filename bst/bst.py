@@ -92,4 +92,20 @@ class BST(object):
         trees which are higher on the right than the left should
         return a negative value. a truely balanced tree returns 0
         """
-        pass
+
+        if self.root.left:
+            num_left_nodes = self.count_nodes(self.root.left) + 1
+        else:
+            num_left_nodes = 0
+        if self.root.right:
+            num_right_nodes = self.count_nodes(self.root.right) + 1
+        else:
+            num_right_nodes = 0
+        return num_left_nodes - num_right_nodes
+
+    def count_nodes(self, start, count=0):
+        if start.left:
+            count += self.count_nodes(start.left) + 1
+        if start.right:
+            count += self.count_nodes(start.right) + 1
+        return count

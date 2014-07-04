@@ -80,6 +80,67 @@ def test_duplicate():
         myBST.insert(node3)
 
 
+def test_balanced_left():
+    myBST = BST()
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    assert myBST.balance() == 1
+
+
+def test_balanced_right():
+    myBST = BST()
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    node7 = Node(9)
+    node8 = Node(15)
+    node9 = Node(13)
+    node10 = Node(11)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    myBST.insert(node7)
+    myBST.insert(node8)
+    myBST.insert(node9)
+    myBST.insert(node10)
+    assert myBST.balance() == -3
+
+
+def test_balanced_balanced():
+    myBST = BST()
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    node7 = Node(9)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    myBST.insert(node7)
+    assert myBST.balance() == 0
+
+
 def test_depth_easy():
     myBST = BST()
     node1 = Node(23)
