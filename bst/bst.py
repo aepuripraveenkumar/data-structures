@@ -91,6 +91,8 @@ class BST(object):
         on the left than the right should return a positive value,
         trees which are higher on the right than the left should
         return a negative value. a truely balanced tree returns 0
+
+        Add 1 to the number of nodes result to account for the starting node
         """
 
         if self.root.left:
@@ -104,6 +106,13 @@ class BST(object):
         return num_left_nodes - num_right_nodes
 
     def count_nodes(self, start, count=0):
+        """
+        Recursion algorithm that travels to the last node of each left branch
+        of the tree passed to it.  As it returns, it adds one for
+        a left branch and then travels down the right branch for that node and
+        adds one for each node.
+        """
+
         if start.left:
             count += self.count_nodes(start.left) + 1
         if start.right:
