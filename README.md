@@ -14,6 +14,7 @@ https://www.python.org/doc/essays/graphs/  -- for guido_graph
 Introduction to Computation and Programming by Eric Grimson -- Breadth First Search
 https://www.youtube.com/watch?v=05WQNgR4Urk  -- for bellman_ford algorithm
 http://stackoverflow.com/questions/2592769/what-is-the-relaxation-condition-in-graph-theory - Understanding relaxing
+https://www.youtube.com/watch?v=ozsuci5pIso - Lecture on bellman-ford
 gist.gisthub.com/econchick/4666413 -- for Dijkstra
 
 collaborations
