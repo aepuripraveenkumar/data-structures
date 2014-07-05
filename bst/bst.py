@@ -164,19 +164,33 @@ class BST(object):
                 yield n
             yield node.value
 
-# if __name__ == "__main__":
-#     myBST = BST()
-#     node1 = Node(20)
-#     node2 = Node(23)
-#     node3 = Node(10)
-#     node4 = Node(18)
-#     node5 = Node(9)
-#     node6 = Node(21)
-#     myBST.insert(node1)
-#     myBST.insert(node2)
-#     myBST.insert(node3)
-#     myBST.insert(node4)
-#     myBST.insert(node5)
-#     myBST.insert(node6)
-#     generator = myBST.post_order(myBST.root)
->>>>>>> origin/DFT
+    def breadth_first(self, node):
+        """
+        return a generator that will return the values in the tree using a
+        breadth-first search
+        """
+        visit_in_order = [node]
+        for node in visit_in_order:
+            if node.left:
+                visit_in_order.append(node.left)
+            if node.right:
+                visit_in_order.append(node.right)
+            yield node.value
+
+if __name__ == "__main__":
+    myBST = BST()
+    node1 = Node(20)
+    node2 = Node(23)
+    node3 = Node(10)
+    node4 = Node(18)
+    node5 = Node(9)
+    node6 = Node(21)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    generator = myBST.breadth_first(myBST.root)
+    for i in generator:
+        print i
