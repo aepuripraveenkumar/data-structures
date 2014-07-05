@@ -118,3 +118,65 @@ class BST(object):
         if start.right:
             count += self.count_nodes(start.right) + 1
         return count
+
+    def pre_order(self, node):
+        """
+        return a generator that will return the values in the tree using
+        pre-order traversal, one at a time.
+        """
+        # base case
+        if node is None:
+            return
+        else:
+            yield node.value
+            for n in self.pre_order(node.left):
+                yield n
+            for n in self.pre_order(node.right):
+                yield n
+
+    def in_order(self, node):
+        """
+        return a generator that will return the values in the tree using
+        in-order traversal, one at a time.
+        """
+        # base case
+        if node is None:
+            return
+        else:
+            for n in self.in_order(node.left):
+                yield n
+            yield node.value
+            for n in self.in_order(node.right):
+                yield n
+
+    def post_order(self, node):
+        """
+        return a generator that will return the values in the tree using
+        post_order traversal, one at a time.
+        """
+        # base case
+        if node is None:
+            return
+        else:
+            for n in self.post_order(node.left):
+                yield n
+            for n in self.post_order(node.right):
+                yield n
+            yield node.value
+
+# if __name__ == "__main__":
+#     myBST = BST()
+#     node1 = Node(20)
+#     node2 = Node(23)
+#     node3 = Node(10)
+#     node4 = Node(18)
+#     node5 = Node(9)
+#     node6 = Node(21)
+#     myBST.insert(node1)
+#     myBST.insert(node2)
+#     myBST.insert(node3)
+#     myBST.insert(node4)
+#     myBST.insert(node5)
+#     myBST.insert(node6)
+#     generator = myBST.post_order(myBST.root)
+>>>>>>> origin/DFT
