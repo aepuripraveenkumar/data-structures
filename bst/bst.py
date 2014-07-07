@@ -20,7 +20,7 @@ class BST(object):
         will insert the value val into the BST.
         If val is already present it will be ignored.
         """
-        if not self.contains(new):
+        if not self.contains(new.value):
             self.temp_depth = 1
             if not self.root:
                 self.root = new
@@ -56,11 +56,11 @@ class BST(object):
             print "The tree doesnt need duplicate seeds"
             raise ValueError
 
-    def contains(self, Node):
+    def contains(self, value):
         """
         Will return True if val is in BST, else False
         """
-        if Node.value in self.values:
+        if value in self.values:
             return True
         else:
             return False
@@ -177,6 +177,54 @@ class BST(object):
                 visit_in_order.append(node.right)
             yield node.value
 
+    def _is_leaf(self, node):
+        is_leaf = False
+        if node.left is None:
+            if node.right is None:
+                is_leaf = True
+        return is_leaf
+
+    def _has_2_children(self):
+        has_2_children = False
+        if self.left is not None:
+            if self.right is not None:
+                has_2_children = True
+        return has_2_children
+
+    def _find_node_in_order(self, node):
+        visit_in_order = [node]
+        for node in visit_in_order:
+            if node.left:
+                visit_in_order.append(node.left)
+            if node.right:
+                visit_in_order.append(node.right)
+            yield node
+
+
+
+    def _find_node_parent(self, value):
+        generator = self._find_node_in_order(self.root)
+        for i in generator:
+            if i.right:
+                if i.right.value == value:
+                    return i
+            if i.left:
+                if i.left.value == value:
+                    return i
+
+
+    def delete(self, val):
+        if not self.contains(val):
+            return
+        delete_node_parent = self._find_node_parent(val)
+        if delete_node_parent.left.value == val:
+            if self._is_leaf(delete_node_parent):
+                delete_node_parent.left = None
+            else:
+                delete_node_parent.right = None
+            self.values.remove(val)
+
+
 if __name__ == "__main__":
     myBST = BST()
     node1 = Node(20)
@@ -191,6 +239,6 @@ if __name__ == "__main__":
     myBST.insert(node4)
     myBST.insert(node5)
     myBST.insert(node6)
-    generator = myBST.breadth_first(myBST.root)
+    generator = myBST._find_node_in_order(myBST.root)
     for i in generator:
         print i
