@@ -84,7 +84,7 @@ class BST(object):
         """
         return self.depth
 
-    def balance(self):
+    def balance(self, node=None):
         """
         return an int, positive or negative that represents
         how well balanced the tree is. trees which are higher
@@ -95,12 +95,12 @@ class BST(object):
         Add 1 to the number of nodes result to account for the starting node
         """
 
-        if self.root.left:
-            num_left_nodes = self.count_nodes(self.root.left) + 1
+        if node.left:
+            num_left_nodes = self.count_nodes(node.left) + 1
         else:
             num_left_nodes = 0
-        if self.root.right:
-            num_right_nodes = self.count_nodes(self.root.right) + 1
+        if node.right:
+            num_right_nodes = self.count_nodes(node.right) + 1
         else:
             num_right_nodes = 0
         return num_left_nodes - num_right_nodes
@@ -210,11 +210,50 @@ class BST(object):
                 if i.left.value == value:
                     return i
 
+    def _remove_two_child(self, value):
+        if self.root.value == value:
+            node = self.root
+        else:
+            parent = self._find_node_parent(value)
+            print parent
+            if value > parent.value:
+                node = parent.right
+            else:
+                node = parent.left
+        if self.balance(node) > 0:
+            biggest = 0
+            biggest_node = None
+            generator = self._find_node_in_order(node)
+            for i in generator:
+                if i.value > biggest:
+                    biggest = i.value
+                    biggest_node = i
+            print "this is the biggest stutf", biggest_node.value
+            biggest_parent = self._find_node_parent(biggest_node.value)
+            # set input node to biggest value
+            node.value = biggest_node.value
+            # clean up
+            biggest_parent.right = biggest_node.left
+        else:
+            smallest = float('inf')
+            smallest_node = None
+            generator = self._find_node_in_order(node)
+            for i in generator:
+                if i.value < smallest:
+                    smallest = i.value
+                    smallest_node = i
+            smallest_parent = self._find_node_parent(smallest_node.value)
+            print "this is the smallest node", smallest_node.value
+            print "This is the smallest parent", smallest_parent
+            node.value = smallest_node.value
+            smallest_parent.left = smallest_node.right
+
     def delete(self, val):
         if not self.contains(val):
             return
         # get the parent of value we are trying to delete
         parent = self._find_node_parent(val)
+        print "THIS IS THE PARENT", parent
         # if value is on the right of parent
 
         if val > parent.value:
@@ -222,7 +261,9 @@ class BST(object):
             if self._is_leaf(node):
                 parent.right = None
             elif self._has_2_children(node):
-                pass
+                # check balance
+                print 'This is the value!!!!!!!!!', val
+                self._remove_two_child(val)
             # target node has one child
             else:
                 if node.right:
@@ -235,7 +276,8 @@ class BST(object):
             if self._is_leaf(node):
                 parent.left = None
             elif self._has_2_children(node):
-                pass
+                print 'This is the value!!!!!!!!!', val
+                self._remove_two_child(val)
             # target node has one child
             else:
                 if node.right:
@@ -258,6 +300,9 @@ if __name__ == "__main__":
     node8 = Node(15)
     node9 = Node(13)
     node10 = Node(11)
+    node11 = Node(20)
+    node12 = Node(23)
+    node13 = Node(19)
     myBST.insert(node1)
     myBST.insert(node2)
     myBST.insert(node3)
@@ -268,7 +313,11 @@ if __name__ == "__main__":
     myBST.insert(node8)
     myBST.insert(node9)
     myBST.insert(node10)
-    myBST.delete(11)
-    generator = myBST.in_order(myBST.root)
+    myBST.insert(node11)
+    myBST.insert(node12)
+    myBST.insert(node13)
+    myBST.delete(15)
+    generator = myBST._find_node_in_order(myBST.root)
     for i in generator:
-        print i
+        print i.value
+
