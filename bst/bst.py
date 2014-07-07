@@ -184,10 +184,10 @@ class BST(object):
                 is_leaf = True
         return is_leaf
 
-    def _has_2_children(self):
+    def _has_2_children(self, node):
         has_2_children = False
-        if self.left is not None:
-            if self.right is not None:
+        if node.left is not None:
+            if node.right is not None:
                 has_2_children = True
         return has_2_children
 
@@ -200,8 +200,6 @@ class BST(object):
                 visit_in_order.append(node.right)
             yield node
 
-
-
     def _find_node_parent(self, value):
         generator = self._find_node_in_order(self.root)
         for i in generator:
@@ -212,33 +210,65 @@ class BST(object):
                 if i.left.value == value:
                     return i
 
-
     def delete(self, val):
         if not self.contains(val):
             return
-        delete_node_parent = self._find_node_parent(val)
-        if delete_node_parent.left.value == val:
-            if self._is_leaf(delete_node_parent):
-                delete_node_parent.left = None
+        # get the parent of value we are trying to delete
+        parent = self._find_node_parent(val)
+        # if value is on the right of parent
+
+        if val > parent.value:
+            node = parent.right
+            if self._is_leaf(node):
+                parent.right = None
+            elif self._has_2_children(node):
+                pass
+            # target node has one child
             else:
-                delete_node_parent.right = None
-            self.values.remove(val)
+                if node.right:
+                    parent.right = node.right
+                else:
+                    parent.right = node.left
+        # if value is on the left of parent
+        else:
+            node = parent.left
+            if self._is_leaf(node):
+                parent.left = None
+            elif self._has_2_children(node):
+                pass
+            # target node has one child
+            else:
+                if node.right:
+                    parent.left = node.right
+                else:
+                    parent.left = node.left
+
+        self.values.remove(val)
 
 
 if __name__ == "__main__":
     myBST = BST()
-    node1 = Node(20)
-    node2 = Node(23)
-    node3 = Node(10)
-    node4 = Node(18)
-    node5 = Node(9)
-    node6 = Node(21)
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    node7 = Node(9)
+    node8 = Node(15)
+    node9 = Node(13)
+    node10 = Node(11)
     myBST.insert(node1)
     myBST.insert(node2)
     myBST.insert(node3)
     myBST.insert(node4)
     myBST.insert(node5)
     myBST.insert(node6)
-    generator = myBST._find_node_in_order(myBST.root)
+    myBST.insert(node7)
+    myBST.insert(node8)
+    myBST.insert(node9)
+    myBST.insert(node10)
+    myBST.delete(11)
+    generator = myBST.in_order(myBST.root)
     for i in generator:
         print i
