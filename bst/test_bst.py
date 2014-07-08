@@ -94,7 +94,7 @@ def test_balanced_left():
     myBST.insert(node4)
     myBST.insert(node5)
     myBST.insert(node6)
-    assert myBST.balance() == 1
+    assert myBST.balance(myBST.root) == 1
 
 
 def test_balanced_right():
@@ -119,7 +119,7 @@ def test_balanced_right():
     myBST.insert(node8)
     myBST.insert(node9)
     myBST.insert(node10)
-    assert myBST.balance() == -3
+    assert myBST.balance(myBST.root) == -3
 
 
 def test_balanced_balanced():
@@ -138,7 +138,7 @@ def test_balanced_balanced():
     myBST.insert(node5)
     myBST.insert(node6)
     myBST.insert(node7)
-    assert myBST.balance() == 0
+    assert myBST.balance(myBST.root) == 0
 
 
 def test_depth_easy():
@@ -255,3 +255,143 @@ def test_breadth_first():
     for i in generator:
         list1.append(i)
     assert list1 == [20, 10, 23, 9, 18, 21]
+
+
+def test_find_parent():
+    myBST = BST()
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    node7 = Node(9)
+    node8 = Node(15)
+    node9 = Node(13)
+    node10 = Node(11)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    myBST.insert(node7)
+    myBST.insert(node8)
+    myBST.insert(node9)
+    myBST.insert(node10)
+    assert myBST._find_node_parent(11) == node9
+
+
+def test_del_leaf():
+    myBST = BST()
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    node7 = Node(9)
+    node8 = Node(15)
+    node9 = Node(13)
+    node10 = Node(11)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    myBST.insert(node7)
+    myBST.insert(node8)
+    myBST.insert(node9)
+    myBST.insert(node10)
+    assert node9.left == node10
+    myBST.delete(11)
+    assert myBST.contains(11) == False
+    assert node9.left == None
+
+
+def test_del_right_child():
+    myBST = BST()
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    node7 = Node(9)
+    node8 = Node(15)
+    node9 = Node(13)
+    node10 = Node(11)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    myBST.insert(node7)
+    myBST.insert(node8)
+    myBST.insert(node9)
+    myBST.insert(node10)
+    assert node9.left == node10
+    myBST.delete(13)
+    assert node8.left.value == 11
+
+
+def test_del_two_children_left():
+    myBST = BST()
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    node7 = Node(9)
+    node8 = Node(15)
+    node9 = Node(13)
+    node10 = Node(11)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    myBST.insert(node7)
+    myBST.insert(node8)
+    myBST.insert(node9)
+    myBST.insert(node10)
+    myBST.delete(4)
+    assert node2.value == 2
+    assert node2.left is None
+
+
+def test_del_two_children_right():
+    myBST = BST()
+    node1 = Node(7)
+    node2 = Node(4)
+    node3 = Node(8)
+    node4 = Node(10)
+    node5 = Node(6)
+    node6 = Node(2)
+    node7 = Node(9)
+    node8 = Node(15)
+    node9 = Node(13)
+    node10 = Node(11)
+    node11 = Node(20)
+    node12 = Node(23)
+    node13 = Node(19)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    myBST.insert(node4)
+    myBST.insert(node5)
+    myBST.insert(node6)
+    myBST.insert(node7)
+    myBST.insert(node8)
+    myBST.insert(node9)
+    myBST.insert(node10)
+    myBST.insert(node11)
+    myBST.insert(node12)
+    myBST.insert(node13)
+    myBST.delete(15)
+    assert node8.value == 11
+
