@@ -257,31 +257,6 @@ def test_breadth_first():
     assert list1 == [20, 10, 23, 9, 18, 21]
 
 
-def test_find_parent():
-    myBST = BST()
-    node1 = Node(7)
-    node2 = Node(4)
-    node3 = Node(8)
-    node4 = Node(10)
-    node5 = Node(6)
-    node6 = Node(2)
-    node7 = Node(9)
-    node8 = Node(15)
-    node9 = Node(13)
-    node10 = Node(11)
-    myBST.insert(node1)
-    myBST.insert(node2)
-    myBST.insert(node3)
-    myBST.insert(node4)
-    myBST.insert(node5)
-    myBST.insert(node6)
-    myBST.insert(node7)
-    myBST.insert(node8)
-    myBST.insert(node9)
-    myBST.insert(node10)
-    assert myBST._find_node_parent(11) == node9
-
-
 def test_del_leaf():
     myBST = BST()
     node1 = Node(7)
@@ -306,8 +281,8 @@ def test_del_leaf():
     myBST.insert(node10)
     assert node9.left == node10
     myBST.delete(11)
-    assert myBST.contains(11) == False
-    assert node9.left == None
+    assert myBST.contains(11) is False
+    assert node9.left is None
 
 
 def test_del_right_child():
@@ -393,5 +368,8 @@ def test_del_two_children_right():
     myBST.insert(node12)
     myBST.insert(node13)
     myBST.delete(15)
-    assert node8.value == 11
-
+    generator = myBST._self_order_breadth
+    tree_list = []
+    for i in generator:
+        tree_list.append(i.value)
+    assert tree_list == [7, 4, 8, 2, 6, 10, 9, 23, 13, 20, 11, 19]
