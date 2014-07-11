@@ -66,11 +66,6 @@ class BST(object):
             return True
         else:
             return False
-        # top = self.root
-        # if Node.value == top.value:
-        #     return True
-        # elif Node.value < top.value:
-        #     top = top.left
 
     def size(self):
         """
@@ -230,6 +225,9 @@ class BST(object):
         for i in generator:
             if i.value > replace_node.value:
                 replace_node = i
+        # if only a left child on delete node
+        if replace_node == delete_node:
+            replace_node = delete_node.left
         # set input node to biggest value
         delete_node.value = replace_node.value
         # delete moved node
@@ -284,7 +282,7 @@ if __name__ == "__main__":
     myBST.insert(node11)
     myBST.insert(node12)
     myBST.insert(node13)
-    myBST.delete(4)
+    myBST.delete(13)
     generator = myBST._find_node_breadth(myBST.root)
     for i in generator:
         print i.value
