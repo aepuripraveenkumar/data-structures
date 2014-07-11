@@ -35,6 +35,7 @@ class BST(object):
                             top = top.left
                             self.temp_depth += 1
                         else:
+                            new.parent = top
                             top.left = new
                             self.values.append(new.value)
                             self.temp_depth += 1
@@ -46,6 +47,7 @@ class BST(object):
                             top = top.right
                             self.temp_depth += 1
                         else:
+                            new.parent = top
                             top.right = new
                             self.values.append(new.value)
                             self.temp_depth += 1
@@ -184,14 +186,7 @@ class BST(object):
                 is_leaf = True
         return is_leaf
 
-    def _has_2_children(self, node):
-        has_2_children = False
-        if node.left is not None:
-            if node.right is not None:
-                has_2_children = True
-        return has_2_children
-
-    def _find_node_in_order(self, node):
+    def _find_node_breadth(self, node):
         visit_in_order = [node]
         for node in visit_in_order:
             if node.left:
@@ -200,90 +195,63 @@ class BST(object):
                 visit_in_order.append(node.right)
             yield node
 
-    def _find_node_parent(self, value):
-        generator = self._find_node_in_order(self.root)
+    def _find_node(self, value):
+        generator = self._find_node_breadth(self.root)
         for i in generator:
             if i.right:
                 if i.right.value == value:
-                    return i
+                    return i.right
             if i.left:
                 if i.left.value == value:
-                    return i
+                    return i.left
 
-    def _remove_two_child(self, value):
-        if self.root.value == value:
-            node = self.root
+    def _delete_the_node(self, delete_node):
+        generator = None
+        print "Function value: ", delete_node.value
+        print "Function left: ", delete_node.left
+        if delete_node.left or delete_node.right:
+            print "create generator"
+            generator = self._find_node_breadth(delete_node)
+        if delete_node.parent.left == delete_node:
+            delete_node.parent.left = None
         else:
-            parent = self._find_node_parent(value)
-            print parent
-            if value > parent.value:
-                node = parent.right
-            else:
-                node = parent.left
-        if self.balance(node) > 0:
-            biggest = 0
-            biggest_node = None
-            generator = self._find_node_in_order(node)
+            delete_node.parent.right = None
+        if generator:
             for i in generator:
-                if i.value > biggest:
-                    biggest = i.value
-                    biggest_node = i
-            print "this is the biggest stutf", biggest_node.value
-            biggest_parent = self._find_node_parent(biggest_node.value)
-            # set input node to biggest value
-            node.value = biggest_node.value
-            # clean up
-            biggest_parent.right = biggest_node.left
-        else:
-            smallest = float('inf')
-            smallest_node = None
-            generator = self._find_node_in_order(node)
-            for i in generator:
-                if i.value < smallest:
-                    smallest = i.value
-                    smallest_node = i
-            smallest_parent = self._find_node_parent(smallest_node.value)
-            print "this is the smallest node", smallest_node.value
-            print "This is the smallest parent", smallest_parent
-            node.value = smallest_node.value
-            smallest_parent.left = smallest_node.right
+                if i is not delete_node:
+                    i.left = None
+                    i.right = None
+                    i.parent = None
+                    self.insert(i)
+
+    def _remove_child(self, delete_node):
+        replace_node = Node(None)
+        generator = self._find_node_breadth(delete_node)
+        for i in generator:
+            if i.value > replace_node.value:
+                replace_node = i
+        # set input node to biggest value
+        delete_node.value = replace_node.value
+        # delete moved node
+        print "Replace node value: ", replace_node.value
+        print "Replace node left: ", replace_node.left
+        self._delete_the_node(replace_node)
 
     def delete(self, val):
         if not self.contains(val):
             return
-        # get the parent of value we are trying to delete
-        parent = self._find_node_parent(val)
-        print "THIS IS THE PARENT", parent
-        # if value is on the right of parent
+        # get the node we are trying to delete
+        delete_node = self._find_node(val)
+        is_deleted = False
 
-        if val > parent.value:
-            node = parent.right
-            if self._is_leaf(node):
-                parent.right = None
-            elif self._has_2_children(node):
-                # check balance
-                print 'This is the value!!!!!!!!!', val
-                self._remove_two_child(val)
-            # target node has one child
+        while not is_deleted:
+            if self._is_leaf(delete_node):
+                self._delete_the_node(delete_node)
+                is_deleted = True
+
             else:
-                if node.right:
-                    parent.right = node.right
-                else:
-                    parent.right = node.left
-        # if value is on the left of parent
-        else:
-            node = parent.left
-            if self._is_leaf(node):
-                parent.left = None
-            elif self._has_2_children(node):
-                print 'This is the value!!!!!!!!!', val
-                self._remove_two_child(val)
-            # target node has one child
-            else:
-                if node.right:
-                    parent.left = node.right
-                else:
-                    parent.left = node.left
+                self._remove_child(delete_node)
+                is_deleted = True
 
         self.values.remove(val)
 
@@ -316,8 +284,7 @@ if __name__ == "__main__":
     myBST.insert(node11)
     myBST.insert(node12)
     myBST.insert(node13)
-    myBST.delete(15)
-    generator = myBST._find_node_in_order(myBST.root)
+    myBST.delete(4)
+    generator = myBST._find_node_breadth(myBST.root)
     for i in generator:
         print i.value
-
