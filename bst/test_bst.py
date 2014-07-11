@@ -335,8 +335,7 @@ def test_del_two_children_left():
     myBST.insert(node9)
     myBST.insert(node10)
     myBST.delete(4)
-    assert node2.value == 2
-    assert node2.left is None
+    assert node2.value == 6
 
 
 def test_del_two_children_right():
@@ -368,7 +367,7 @@ def test_del_two_children_right():
     myBST.insert(node12)
     myBST.insert(node13)
     myBST.delete(15)
-    generator = myBST._self_order_breadth
+    generator = myBST._find_node_breadth(myBST.root)
     tree_list = []
     for i in generator:
         tree_list.append(i.value)
