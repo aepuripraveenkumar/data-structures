@@ -91,16 +91,23 @@ class BST(object):
 
         Add 1 to the number of nodes result to account for the starting node
         """
-
-        if node.left:
-            num_left_nodes = self.count_nodes(node.left) + 1
+        right_weight = []
+        left_weight = []
+        if self.root.right:
+            right = self.in_order(self.root.right)
+            for i in right:
+                right_weight.append(i)
+        if self.root.left:
+            left = self.in_order(self.root.left)
+            for i in left:
+                left_weight.append(i)
+        balance = len(left_weight) - len(right_weight)
+        if balance > 0:
+            return 1
+        elif balance < 0:
+            return -1
         else:
-            num_left_nodes = 0
-        if node.right:
-            num_right_nodes = self.count_nodes(node.right) + 1
-        else:
-            num_right_nodes = 0
-        return num_left_nodes - num_right_nodes
+            return 0
 
     def count_nodes(self, start, count=0):
         """
@@ -283,6 +290,7 @@ if __name__ == "__main__":
     myBST.insert(node12)
     myBST.insert(node13)
     myBST.delete(13)
-    generator = myBST._find_node_breadth(myBST.root)
-    for i in generator:
-        print i.value
+    print myBST.balance()
+    # generator = myBST.in_order(myBST.root)
+    # for i in generator:
+    #     print i.value
