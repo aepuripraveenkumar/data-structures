@@ -13,19 +13,19 @@ class Node(object):
         return self.value
 
     def isLeftChild(self):
-        return self.parent and self.parent.leftChild == self
+        return self.parent and self.parent.left == self
 
     def isRightChild(self):
-        return self.parent and self.parent.rightRight == self
+        return self.parent and self.parent.right == self
 
     def isLeaf(self):
-        return not (self.rightChild or self.leftChild)
+        return not (self.right or self.left)
 
     def hasAnyChildren(self):
-        return self.rightChild or self.leftChild
+        return self.right or self.left
 
     def hasBothChildren(self):
-        return self.rightChild and self.leftChild
+        return self.right and self.left
 
 
 class BST(object):
