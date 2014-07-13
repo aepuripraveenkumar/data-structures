@@ -3,10 +3,10 @@ class HashTable(object):
 
     def __init__(self, size):
         self.size = size
-        self.hash_t = dict((str(i), {}) for i in range(self.size))
+        self.hash_t = dict((i, {}) for i in range(self.size))
 
     def hash(self, key):
-        index = None
+        index = 0
         for ch in key:
             index += ord(ch)
         return index % self.size
