@@ -9,7 +9,7 @@ def make_hash_table():
 
 @fixture(scope='session')
 def test_words():
-    with open('/usr/share/dict/words') as words:
+    with open('words') as words:
         word_list = [word.strip() for word in words]
     return word_list
 
