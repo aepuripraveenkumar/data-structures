@@ -12,10 +12,14 @@ class month_function(object):
         self.year = year
         self.month = month
         c = Calendar()
+        # returns nested list of weeks / days of given month in given year
         self.month1 = Calendar.monthdayscalendar(c, year, month)
 
     def day(self, day):
+        """
+        Day should be an int, returns abbreviation for the day
+        """
+
         for i in range(len(self.month1)):
             if day in self.month1[i]:
                 print self.day_table[self.month1[i].index(day)]
-
