@@ -33,7 +33,6 @@ class BST(object):
         self.root = None
         self.values = []
 
-
     def insert(self, new):
         """
         will insert the value val into the BST.
@@ -104,7 +103,6 @@ class BST(object):
             return len(right_depth)
         else:
             return len(left_depth)
-
 
 
         return self.depth
@@ -288,6 +286,7 @@ class BST(object):
 
         self.values.remove(val)
 
+
 class balancedTree(BST):
 
     def insert(self, new):
@@ -336,10 +335,56 @@ class balancedTree(BST):
             elif node.isRightChild():
                 node.parent.balanceFactor -= 1
 
-            #
             if node.parent.balanceFactor != 0:
                 self.updateBalance(node.parent)
 
-
     def rebalance(self, node):
         pass
+
+    def rotateLeft(self, rotRoot):
+        # the new root will be the rotating node's right child
+        newRoot = rotRoot.right
+        # set old root's right to new root's left
+        rotRoot.right = newRoot.left
+        # clean up parent pointers
+        if newRoot.left != None:
+            newRoot.left.parent = rotRoot
+        newRoot.parent = rotRoot.parent
+        if self.root = rotRoot:
+            self.root = newRoot
+        else:
+            if rotRoot.isLeftChild():
+                rotRoot.parent.left = newRoot
+            else:
+                rotRoot.parent.right = newRoot
+        # update new root pointers
+        newRoot.left = rotRoot
+        newRoot.parent = newRoot
+        # update balance factors
+        rotRoot.balanceFactor = rotRoot.balanceFactor + 1 - min(newRoot.balanceFactor, 0)
+        newRoot.balanceFactor = newRoot.balanceFactor + 1 - max(rotRoot.balanceFactor, 0)
+
+    def rotateRight(self, rotRoot):
+        # need to fix
+        # the new root will be the rotating node's left child
+        newRoot = rotRoot.left
+        # set old root's left to new root's right
+        rotRoot.left = newRoot.right
+        # clean up parent pointers
+        if newRoot.right != None:
+            newRoot.right.parent = rotRoot
+        newRoot.parent = rotRoot.parent
+        if self.root = rotRoot:
+            self.root = newRoot
+        else:
+            if rotRoot.isLeftChild():
+                rotRoot.parent.left = newRoot
+            else:
+                rotRoot.parent.right = newRoot
+        # update new root point
+        newRoot.right = rotRoot
+        # update
+        rotRoot.parent = newRoot
+        # update balance factors
+        rotRoot.balanceFactor = rotRoot.balanceFactor + 1 - min(newRoot.balanceFactor, 0)
+        newRoot.balanceFactor = newRoot.balanceFactor + 1 - max(rotRoot.balanceFactor, 0)
