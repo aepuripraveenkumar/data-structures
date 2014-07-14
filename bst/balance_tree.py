@@ -104,7 +104,6 @@ class BST(object):
         else:
             return len(left_depth)
 
-
         return self.depth
 
     def balance(self, node=None):
@@ -294,6 +293,7 @@ class balancedTree(BST):
         will insert the value val into the BST.
         If val is already present it will be ignored.
         """
+        print "Inserting: ", new.value
         if not self.contains(new.value):
             if not self.root:
                 self.root = new
@@ -326,22 +326,43 @@ class balancedTree(BST):
             raise ValueError("The tree doesnt need duplicate seeds")
 
     def updateBalance(self, node):
+        print "Updating balance on node", node.value, node.balanceFactor
         if node.balanceFactor > 1 or node.balanceFactor < -1:
             self.rebalance(node)
             return
         if node.parent != None:
             if node.isLeftChild():
                 node.parent.balanceFactor += 1
+                print "Left Factor updated", node.parent.value, node.balanceFactor
             elif node.isRightChild():
                 node.parent.balanceFactor -= 1
+                print "right Factor updated", node.parent.value, node.balanceFactor
 
             if node.parent.balanceFactor != 0:
                 self.updateBalance(node.parent)
 
     def rebalance(self, node):
-        pass
+        """
+        Rebalances tree.
+        Second if statement fixes issue where balance
+        is incorrect on improperly balanced child
+        """
+        print "REBALANCING"
+        if node.balanceFactor < 0:
+            if node.right.balanceFactor > 0:
+                self.rotateRight(node.right)
+                self.rotateLeft(node)
+            else:
+                self.rotateLeft(node)
+        elif node.balanceFactor > 0:
+            if node.left.balanceFactor < 0:
+                self.rotateLeft(node.left)
+                self.rotateRight(node)
+            else:
+                self.rotateRight(node)
 
     def rotateLeft(self, rotRoot):
+        print "Rotating left"
         # the new root will be the rotating node's right child
         newRoot = rotRoot.right
         # set old root's right to new root's left
@@ -350,7 +371,7 @@ class balancedTree(BST):
         if newRoot.left != None:
             newRoot.left.parent = rotRoot
         newRoot.parent = rotRoot.parent
-        if self.root = rotRoot:
+        if self.root == rotRoot:
             self.root = newRoot
         else:
             if rotRoot.isLeftChild():
@@ -365,6 +386,7 @@ class balancedTree(BST):
         newRoot.balanceFactor = newRoot.balanceFactor + 1 - max(rotRoot.balanceFactor, 0)
 
     def rotateRight(self, rotRoot):
+        print "Rotating right"
         # need to fix
         # the new root will be the rotating node's left child
         newRoot = rotRoot.left
@@ -374,7 +396,7 @@ class balancedTree(BST):
         if newRoot.right != None:
             newRoot.right.parent = rotRoot
         newRoot.parent = rotRoot.parent
-        if self.root = rotRoot:
+        if self.root == rotRoot:
             self.root = newRoot
         else:
             if rotRoot.isLeftChild():
@@ -388,3 +410,19 @@ class balancedTree(BST):
         # update balance factors
         rotRoot.balanceFactor = rotRoot.balanceFactor + 1 - min(newRoot.balanceFactor, 0)
         newRoot.balanceFactor = newRoot.balanceFactor + 1 - max(rotRoot.balanceFactor, 0)
+
+
+if __name__ == '__main__':
+    myBST = balancedTree()
+    node1 = Node(23)
+    node2 = Node(24)
+    node3 = Node(18)
+    node3 = Node(27)
+    node4 = Node(2)
+    node5 = Node(65)
+    myBST.insert(node1)
+    myBST.insert(node2)
+    myBST.insert(node3)
+    # myBST.insert(node4)
+    # myBST.insert(node5)
+
