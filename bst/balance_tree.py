@@ -1,19 +1,37 @@
+from bst import Node, BST
+
+
 class Node(object):
     def __init__(self, value, parent=None, left=None, right=None, level=None):
         self.value = value
         self.parent = parent
         self.left = left
         self.right = right
+        self.balanceFactor = 0
 
     def __unicode__(self):
         return self.value
+
+    def isLeftChild(self):
+        return self.parent and self.parent.left == self
+
+    def isRightChild(self):
+        return self.parent and self.parent.right == self
+
+    def isLeaf(self):
+        return not (self.right or self.left)
+
+    def hasAnyChildren(self):
+        return self.right or self.left
+
+    def hasBothChildren(self):
+        return self.right and self.left
 
 
 class BST(object):
     def __init__(self):
         self.root = None
         self.values = []
-        self.depth = 0
 
     def insert(self, new):
         """
@@ -21,11 +39,9 @@ class BST(object):
         If val is already present it will be ignored.
         """
         if not self.contains(new.value):
-            self.temp_depth = 1
             if not self.root:
                 self.root = new
                 self.values.append(new.value)
-                self.depth += 1
             else:
                 inserting = True
                 top = self.root
@@ -33,30 +49,22 @@ class BST(object):
                     if new.value < top.value:
                         if top.left:
                             top = top.left
-                            self.temp_depth += 1
                         else:
                             new.parent = top
                             top.left = new
                             self.values.append(new.value)
-                            self.temp_depth += 1
-                            if self.temp_depth > self.depth:
-                                self.depth = self.temp_depth
+                            # set balance factor of parents
                             inserting = False
                     else:
                         if top.right:
                             top = top.right
-                            self.temp_depth += 1
                         else:
                             new.parent = top
                             top.right = new
                             self.values.append(new.value)
-                            self.temp_depth += 1
-                            if self.temp_depth > self.depth:
-                                self.depth = self.temp_depth
                             inserting = False
         else:
-            print "The tree doesnt need duplicate seeds"
-            raise ValueError
+            raise ValueError("The tree doesnt need duplicate seeds")
 
     def contains(self, value):
         """
@@ -79,6 +87,23 @@ class BST(object):
         return an integer representing the total number of levels in
         tree.
         """
+
+        right_depth = []
+        left_depth = []
+        if self.root.right:
+            right = self.in_order(self.root.right)
+            for i in right:
+                right_weight.append(i)
+        if self.root.left:
+            left = self.in_order(self.root.left)
+            for i in left:
+                left_weight.append(i)
+
+        if len(right_depth) > len(left_depth):
+            return len(right_depth)
+        else:
+            return len(left_depth)
+
         return self.depth
 
     def balance(self, node=None):
@@ -261,36 +286,143 @@ class BST(object):
         self.values.remove(val)
 
 
-if __name__ == "__main__":
-    myBST = BST()
-    node1 = Node(7)
-    node2 = Node(4)
-    node3 = Node(8)
-    node4 = Node(10)
-    node5 = Node(6)
-    node6 = Node(2)
-    node7 = Node(9)
-    node8 = Node(15)
-    node9 = Node(13)
-    node10 = Node(11)
-    node11 = Node(20)
-    node12 = Node(23)
-    node13 = Node(19)
+class balancedTree(BST):
+
+    def insert(self, new):
+        """
+        will insert the value val into the BST.
+        If val is already present it will be ignored.
+        """
+        print "Inserting: ", new.value
+        if not self.contains(new.value):
+            if not self.root:
+                self.root = new
+                self.values.append(new.value)
+            else:
+                inserting = True
+                top = self.root
+                while inserting:
+                    if new.value < top.value:
+                        if top.left:
+                            top = top.left
+                        else:
+                            new.parent = top
+                            top.left = new
+                            self.values.append(new.value)
+                            # set balance factor of parents
+                            self.updateBalance(new)
+                            inserting = False
+                    else:
+                        if top.right:
+                            top = top.right
+                        else:
+                            new.parent = top
+                            top.right = new
+                            self.values.append(new.value)
+                            # update balance factor of parents
+                            self.updateBalance(new)
+                            inserting = False
+        else:
+            raise ValueError("The tree doesnt need duplicate seeds")
+
+    def updateBalance(self, node):
+        print "Updating balance on node", node.value, node.balanceFactor
+        if node.balanceFactor > 1 or node.balanceFactor < -1:
+            self.rebalance(node)
+            return
+        if node.parent != None:
+            if node.isLeftChild():
+                node.parent.balanceFactor += 1
+                print "Left Factor updated", node.parent.value, node.balanceFactor
+            elif node.isRightChild():
+                node.parent.balanceFactor -= 1
+                print "right Factor updated", node.parent.value, node.balanceFactor
+
+            if node.parent.balanceFactor != 0:
+                self.updateBalance(node.parent)
+
+    def rebalance(self, node):
+        """
+        Rebalances tree.
+        Second if statement fixes issue where balance
+        is incorrect on improperly balanced child
+        """
+        print "REBALANCING"
+        if node.balanceFactor < 0:
+            if node.right.balanceFactor > 0:
+                self.rotateRight(node.right)
+                self.rotateLeft(node)
+            else:
+                self.rotateLeft(node)
+        elif node.balanceFactor > 0:
+            if node.left.balanceFactor < 0:
+                self.rotateLeft(node.left)
+                self.rotateRight(node)
+            else:
+                self.rotateRight(node)
+
+    def rotateLeft(self, rotRoot):
+        print "Rotating left"
+        # the new root will be the rotating node's right child
+        newRoot = rotRoot.right
+        # set old root's right to new root's left
+        rotRoot.right = newRoot.left
+        # clean up parent pointers
+        if newRoot.left != None:
+            newRoot.left.parent = rotRoot
+        newRoot.parent = rotRoot.parent
+        if self.root == rotRoot:
+            self.root = newRoot
+        else:
+            if rotRoot.isLeftChild():
+                rotRoot.parent.left = newRoot
+            else:
+                rotRoot.parent.right = newRoot
+        # update new root pointers
+        newRoot.left = rotRoot
+        newRoot.parent = newRoot
+        # update balance factors
+        rotRoot.balanceFactor = rotRoot.balanceFactor + 1 - min(newRoot.balanceFactor, 0)
+        newRoot.balanceFactor = newRoot.balanceFactor + 1 - max(rotRoot.balanceFactor, 0)
+
+    def rotateRight(self, rotRoot):
+        print "Rotating right"
+        # need to fix
+        # the new root will be the rotating node's left child
+        newRoot = rotRoot.left
+        # set old root's left to new root's right
+        rotRoot.left = newRoot.right
+        # clean up parent pointers
+        if newRoot.right != None:
+            newRoot.right.parent = rotRoot
+        newRoot.parent = rotRoot.parent
+        if self.root == rotRoot:
+            self.root = newRoot
+        else:
+            if rotRoot.isLeftChild():
+                rotRoot.parent.left = newRoot
+            else:
+                rotRoot.parent.right = newRoot
+        # update new root point
+        newRoot.right = rotRoot
+        # update
+        rotRoot.parent = newRoot
+        # update balance factors
+        rotRoot.balanceFactor = rotRoot.balanceFactor + 1 - min(newRoot.balanceFactor, 0)
+        newRoot.balanceFactor = newRoot.balanceFactor + 1 - max(rotRoot.balanceFactor, 0)
+
+
+if __name__ == '__main__':
+    myBST = balancedTree()
+    node1 = Node(23)
+    node2 = Node(24)
+    node3 = Node(18)
+    node3 = Node(27)
+    node4 = Node(2)
+    node5 = Node(65)
     myBST.insert(node1)
     myBST.insert(node2)
     myBST.insert(node3)
-    myBST.insert(node4)
-    myBST.insert(node5)
-    myBST.insert(node6)
-    myBST.insert(node7)
-    myBST.insert(node8)
-    myBST.insert(node9)
-    myBST.insert(node10)
-    myBST.insert(node11)
-    myBST.insert(node12)
-    myBST.insert(node13)
-    myBST.delete(13)
-    print myBST.balance()
-    # generator = myBST.in_order(myBST.root)
-    # for i in generator:
-    #     print i.value
+    # myBST.insert(node4)
+    # myBST.insert(node5)
+

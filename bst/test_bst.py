@@ -119,7 +119,7 @@ def test_balanced_right():
     myBST.insert(node8)
     myBST.insert(node9)
     myBST.insert(node10)
-    assert myBST.balance(myBST.root) == -3
+    assert myBST.balance(myBST.root) == -1
 
 
 def test_balanced_balanced():
