@@ -1,7 +1,7 @@
 from calendar import Calendar
 
 
-class month_function(object):
+class make_month(object):
     """
     Expects year and month to be integers
     """
@@ -22,4 +22,23 @@ class month_function(object):
 
         for i in range(len(self.month1)):
             if day in self.month1[i]:
-                print self.day_table[self.month1[i].index(day)]
+                return self.day_table[self.month1[i].index(day)]
+
+if __name__ == '__main__':
+    import datetime
+
+    day_table = {6: 'sun', 0: 'mon', 1: 'tue', 2: 'wed',
+                 3: 'thur', 4: 'fri', 5: 'sat'}
+
+    test_years = [1000, 1100, 1215, 1310, 1492, 1500,
+                  1646, 1776, 1865, 1969, 215, 1, 19]
+
+    correct = 0
+    for i in test_years:
+        date1 = datetime.date(i, 1, 1)
+        date2 = make_month(i, 1)
+        if day_table[date1.weekday()] == date2.day(1):
+            correct += 1
+
+    if correct == len(test_years):
+        print 'tests pass'
