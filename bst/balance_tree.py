@@ -93,11 +93,11 @@ class BST(object):
         if self.root.right:
             right = self.in_order(self.root.right)
             for i in right:
-                right_weight.append(i)
+                right_depth.append(i)
         if self.root.left:
             left = self.in_order(self.root.left)
             for i in left:
-                left_weight.append(i)
+                left_depth.append(i)
 
         if len(right_depth) > len(left_depth):
             return len(right_depth)
@@ -410,6 +410,26 @@ class balancedTree(BST):
         # update balance factors
         rotRoot.balanceFactor = rotRoot.balanceFactor + 1 - min(newRoot.balanceFactor, 0)
         newRoot.balanceFactor = newRoot.balanceFactor + 1 - max(rotRoot.balanceFactor, 0)
+
+    def delete(self, val):
+        if not self.contains(val):
+            return
+        # get the node we are trying to delete
+        delete_node = self._find_node(val)
+        is_deleted = False
+
+        while not is_deleted:
+            if self._is_leaf(delete_node):
+                self._delete_the_node(delete_node)
+                self.updateBalance(delete_node.parent)
+                is_deleted = True
+
+            else:
+                self._remove_child(delete_node)
+                self.updateBalance(delete_node.parent)
+                is_deleted = True
+
+        self.values.remove(val)
 
 
 if __name__ == '__main__':
