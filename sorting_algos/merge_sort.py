@@ -1,6 +1,6 @@
 import random
 import time
-import pylab
+# import pylab
 
 
 def merge_sort(uList):
@@ -50,18 +50,19 @@ def _merge(left, right):
             right = right[1:]
     return result
 
-if __name__ == '__main__':
-    results = []
-    ranges = [10, 100, 1000]
-    for t in ranges:
-        for i in range(100):
-            list2 = [random.randint(1, 100) for i in range(t)]
-            start = time.time()
-            merge_sort(list2)
-            end = time.time()
-            results.append(end-start)
-    pylab.figure(1)
-    p1, = pylab.plot([i for i in range(100)], results[0:100])
-    p2, = pylab.plot([i for i in range(100)], results[100:200])
-    p3, = pylab.plot([i for i in range(100)], results[200:])
-    pylab.show()
+# if __name__ == '__main__':
+    # results = []
+    # ranges = [10, 100, 1000]
+    # for t in ranges:
+        # for i in range(100):
+            # list2 = [random.randint(1, 100) for i in range(t)]
+            # start = time.time()
+            # merge_sort(list2)
+            # end = time.time()
+            # results.append(end-start)
+    # pylab.figure(1)
+    # p1, = pylab.plot([i for i in range(100)], results[0:100])
+    # p2, = pylab.plot([i for i in range(100)], results[100:200])
+    # p3, = pylab.plot([i for i in range(100)], results[200:])
+    # pylab.show()
+# 

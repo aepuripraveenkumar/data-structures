@@ -1,5 +1,5 @@
 import random
-import pylab
+# import pylab
 import time
 
 
@@ -39,18 +39,18 @@ def partition(uList, start, end):
     return right
 
 
-if __name__ == '__main__':
-    results = []
-    ranges = [10, 100, 1000]
-    for t in ranges:
-        for i in range(100):
-            list2 = [random.randint(1, 100) for i in range(t)]
-            start = time.time()
-            quicksort(list2, 0, len(list2)-1)
-            end = time.time()
-            results.append(end-start)
-    pylab.figure(1)
-    p1, = pylab.plot([i for i in range(100)], results[0:100])
-    p2, = pylab.plot([i for i in range(100)], results[100:200])
-    p3, = pylab.plot([i for i in range(100)], results[200:])
-    pylab.show()
+# if __name__ == '__main__':
+#     results = []
+#     ranges = [10, 100, 1000]
+#     for t in ranges:
+#         for i in range(100):
+#             list2 = [random.randint(1, 100) for i in range(t)]
+#             start = time.time()
+#             quicksort(list2, 0, len(list2)-1)
+#             end = time.time()
+#             results.append(end-start)
+#     pylab.figure(1)
+#     p1, = pylab.plot([i for i in range(100)], results[0:100])
+#     p2, = pylab.plot([i for i in range(100)], results[100:200])
+#     p3, = pylab.plot([i for i in range(100)], results[200:])
+#     pylab.show()
