@@ -17,7 +17,7 @@ http://stackoverflow.com/questions/2592769/what-is-the-relaxation-condition-in-g
 https://www.youtube.com/watch?v=ozsuci5pIso - Lecture on bellman-ford
 gist.gisthub.com/econchick/4666413 -- for Dijkstra
 http://interactivepython.org/courselib/static/pythonds/Trees/balanced.html - for balanced binary tree
-
+http://www.csanimated.com/animation.php?t=Quicksort - for quicksort
 
 collaborations
 ===============
