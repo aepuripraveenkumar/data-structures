@@ -13,7 +13,8 @@ def test_insert():
     work_pq = PriorityQ()
     work_pq.insert(78, "This is priority 78.")
     assert work_pq.priority_q[0].priority == 78
-    assert work_pq.priority_q[0].message =="This is priority 78."
+    assert work_pq.priority_q[0].message == "This is priority 78."
+
 
 def test_insert_swap():
     """Tests PriorityQ will perform insert and swap highest priority to
@@ -41,7 +42,6 @@ def test_push_peek():
     assert work_pq.peek() == "97 -- This is priority 97."
 
 
-
 def test_pop():
     """Tests PriorityQ correctly pops the head from the PriorityQ"""
     work_pq = PriorityQ()
@@ -54,7 +54,6 @@ def test_pop():
     work_pq.pop()
     assert work_pq.priority_q[0].priority == 80
     assert work_pq.priority_q[0].message == "This is priority 80."
-
 
 
 def test_pop_empty():

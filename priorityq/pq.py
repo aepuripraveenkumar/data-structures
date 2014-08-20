@@ -5,8 +5,8 @@ class PriorityObj(object):
         self.priority = priority
         self.message = msg
 
-class PriorityQ(object):
 
+class PriorityQ(object):
 
     def __init__(self):
         self.priority_q = []
@@ -24,7 +24,6 @@ class PriorityQ(object):
                 parent_index, push_index = (parent_index-1)//2, parent_index
             else:
                 parent_index = -1  #changed to break out of loop
-
 
     def _swap_down(self):
         swap_index = 0
@@ -48,7 +47,6 @@ class PriorityQ(object):
                     self.priority_q[child].priority
             else:
                 break
-
 
     def insert(self, priority, msg):
         self.priority_q.append(PriorityObj(priority, msg))
